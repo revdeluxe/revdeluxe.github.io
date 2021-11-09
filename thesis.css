@@ -1,4 +1,4 @@
-h1 {
+head {
 	color: #6f4e37;
 	font-family: courier;
 	font-size: 250%;
@@ -8,7 +8,6 @@ p.name {
 	color: light-blue;
 	font-family: noto-serif;
 	font-size: 160%;
-	text-align: center;
 }
 sle {
 	color: brown;
