@@ -20,5 +20,5 @@ echo "Committing"
                  let "hour=hour-1"
 		clear
 		done
-echo "School Personal Access Key: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"
+echo "School Personal Access Key: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"
 git push main main
