@@ -13,3 +13,8 @@ p.Contrib {
 body {
 	background-color:#FFE5B4;
 }
+.tableofcontents {
+	color:black;
+	margin-top:80px;
+	font-size:100%;
+}
