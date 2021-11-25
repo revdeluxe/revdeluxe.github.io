@@ -5,7 +5,19 @@ p.Ttitle {
 	margin-bottom:300px;
 	text-align:center;
 }
+p.Tsubtitle{
+	color:brown;
+	font-size:240%;
+	margin-top:80px;
+	margin-bottom:100px;
+	text-align:center;
+}
 p.Contrib {
+	color:brown;
+	font-size:160%;
+	text-align:center;
+}
+p.Body{
 	color:brown;
 	font-size:160%;
 	text-align:center;
@@ -13,4 +25,14 @@ p.Contrib {
 body {
 	background-color:#FFE5B4;
 }
-
+.centerText{
+	color:brown;
+	font-size:160%;
+	text-align:center;
+}
+.credss{
+	color:brown;
+	font-size:120%;
+	text-align:center;
+	margin-left:20%;
+}
