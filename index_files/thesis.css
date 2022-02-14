@@ -36,3 +36,13 @@ body {
 	text-align:center;
 	margin-left:20%;
 }
+dt {
+	color:brown;
+	font-size:160%;
+	margin-left:  20%;
+}
+dd {
+	color:brown;
+	font-size:100%;
+	margin-left:  20%;
+}
