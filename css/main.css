@@ -1,0 +1,68 @@
+body {
+  background-color: #19282F;
+}
+@font-face {
+  font-family: pixel;
+  src: url(SFPixelate.ttf);
+}
+@font-face {
+  font-family: pixel;
+  src: url(SFPixelate-Bold.ttf);
+  font-weight: bold;
+}
+@font-face {
+  font-family: pixel;
+  src: url(SFPixelate-Oblique.ttf);
+  font-style: oblique;
+}
+@font-face {
+  font-family: pixel;
+  src: url(SFPixelate-BoldOblique.ttf);
+  font-style: oblique;
+  font-weight: bold;
+}
+.menubox{
+  background-color: #B33030;
+  border:  15px;
+  border-radius: 35px;
+  padding: 15px;
+  font-family: pixel;
+  font-weight: bold;
+  display: grid;
+  text-align: center;
+  grid-template-columns: auto auto auto auto;
+  grid-gap: 10px;
+}
+.menubox > div {
+  font-size: 30px;
+}
+.vpic{
+  border-radius: 1200px;
+  border: 15px;
+  border-style: solid;
+  border-color: #D3ECA7;
+  width: 130px;
+  height: 130px;
+  image-resolution: from-image;
+  float: right;
+  object-fit: cover;
+}
+#panelaboutme, #panelresume, #panelskills, #panelcontacts, .flip {
+  font-size: 16px;
+  font-family: pixel;
+  background-color: #A1B57D;
+  border: 2px;
+  border-style: solid;
+  border-color: #B33030;
+  padding: 10px;
+  text-align: center;
+  margin: auto;
+}
+#panelaboutme {
+  display: block;}
+#panelresume {
+  display: none;}
+#panelskills {
+  display: none;}
+#panelcontacts {
+  display: none;}
