@@ -27,3 +27,11 @@ p.tab{
   border-color: #474D27;
   background-color: var(--peachy-green);
 }
+leftcol {
+  left: 2%;
+  position: fixed;
+}
+rightcol {
+  left: 52%;
+  position: fixed;
+}
