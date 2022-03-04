@@ -9,80 +9,14 @@
   <body>
     <div class="menubox">
       <div>
-        <h3>Villareal, Richard Josh B.</h3> <h3>//</h3> <h3>Freelance Multimedia Artist</h3>
-      </div>
-      <div>
-        <table>
-          <tbody>
-            <tr>
-              <td><p class="flip" onclick="aboutMe()">About Me</p></td>
-              <td><p class="flip" onclick="resume()">Resume</p></td>
-              <td><p class="flip" onclick="skills()">Skills</p></td>
-              <td><p class="flip" onclick="contacts()">Contacts</p></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div>
-        <img src="photos/main.jpg" alt="Villareal, Richard Josh B." class="vpic">
+        <h3>Villareal, Richard Josh B., Freelance Multimedia Artist</h3>
       </div>
     </div>
-
-  <div id="panelaboutme">
-    <h1>About </h1>
-    <p></p>
-  </div>
-  <div id="panelresume">
-    <h1>Resume</h1>
-  </div>
-  <div id="panelskills">
-    <h1>Skills</h1>
-  </div>
-  <div id="panelcontacts">
-    <h1>Contacts</h1>
-  </div>
-    <script>
-function aboutMe() {
-  var about = document.getElementById("panelaboutme");
-  var displaySetting = about.style.display;
-  if (displaySetting == 'block') {
-     about.style.display = 'none';
-   }
-   else {
-     about.style.display = 'block';
-   }
-}
-function resume() {
-  var resume = document.getElementById("panelresume");
-  var displaySetting = resume.style.display;
-  if (displaySetting == 'block') {
-     resume.style.display = 'none';
-   }
-   else {
-     resume.style.display = 'block';
-   }
-}
-function skills() {
-  var skills = document.getElementById("panelskills");
-  var displaySetting = skills.style.display;
-  if (displaySetting == 'block') {
-     skills.style.display = 'none';
-   }
-   else {
-     skills.style.display = 'block';
-   }
-}
-function contacts() {
-  var contacts = document.getElementById("panelcontacts");
-  var displaySetting = contacts.style.display;
-  if (displaySetting == 'block') {
-     contacts.style.display = 'none';
-   }
-   else {
-     contacts.style.display = 'block';
-   }
-}
-
-</script>
+    <div class="paneltab">
+      <h1>About</h1>
+      <h1>Projects</h1>
+      <h1>Resume</h1>
+      <h1>Contact</h1>
+    </div>
   </body>
 </html>

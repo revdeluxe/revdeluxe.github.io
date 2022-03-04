@@ -33,36 +33,37 @@ body {
   grid-template-columns: auto auto auto auto;
   grid-gap: 10px;
 }
-.menubox > div {
-  font-size: 30px;
-}
-.vpic{
-  border-radius: 1200px;
-  border: 15px;
+.paneltab{
+  position: fixed;
+  top: 15%;
+  display: inline;
+  border: 5px;
+  padding: 20px;
   border-style: solid;
-  border-color: #D3ECA7;
-  width: 130px;
-  height: 130px;
-  image-resolution: from-image;
-  float: right;
-  object-fit: cover;
-}
-#panelaboutme, #panelresume, #panelskills, #panelcontacts, .flip {
-  font-size: 16px;
-  font-family: pixel;
-  background-color: #A1B57D;
-  border: 2px;
-  border-style: solid;
+  border-radius: 15px;
   border-color: #B33030;
-  padding: 10px;
-  text-align: center;
-  margin: auto;
 }
-#panelaboutme {
-  display: block;}
-#panelresume {
-  display: none;}
-#panelskills {
-  display: none;}
-#panelcontacts {
-  display: none;}
+.paneltab > h1:nth-child(1) {
+    font-size: 10%
+}
+.paneltab > h1:nth-child(1):hover {
+  font-size: 100%
+}
+.paneltab > h1:nth-child(2) {
+    font-size: 10%
+}
+.paneltab > h1:nth-child(2):hover {
+  font-size: 100%
+}
+.paneltab > h1:nth-child(3) {
+    font-size: 10%
+}
+.paneltab > h1:nth-child(3):hover {
+  font-size: 100%
+}
+.paneltab > h1:nth-child(4) {
+    font-size: 10%
+}
+.paneltab > h1:nth-child(4):hover {
+  font-size: 100%
+}
