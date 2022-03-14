@@ -1,5 +1,6 @@
 body {
-  background-color: #19282F;
+  background-color: cadetblue;
+  font-family: pixel;
 }
 @font-face {
   font-family: pixel;
@@ -21,49 +22,35 @@ body {
   font-style: oblique;
   font-weight: bold;
 }
-.menubox{
-  background-color: #B33030;
-  border:  15px;
-  border-radius: 35px;
-  padding: 15px;
-  font-family: pixel;
-  font-weight: bold;
-  display: grid;
-  text-align: center;
-  grid-template-columns: auto auto auto auto;
-  grid-gap: 10px;
-}
-.paneltab{
+a {
+  color: brown;
   position: fixed;
-  top: 15%;
-  display: inline;
-  border: 5px;
-  padding: 20px;
-  border-style: solid;
+  top: 93%;
   border-radius: 15px;
-  border-color: #B33030;
+  background-color: coral;
+  padding: 6px;
+  border: 3px burlywood solid;
+  transition: top 0.5s ease-in-out;
 }
-.paneltab > h1:nth-child(1) {
-    font-size: 10%
+a:hover {
+  font-style: italic;
+  top: 89%;
+  color: black;
 }
-.paneltab > h1:nth-child(1):hover {
-  font-size: 100%
+h1.name {
+  color: chartreuse;
+  position: fixed;
+  top: 20%;
+  left: 20%;
+  font-size: 92px;
 }
-.paneltab > h1:nth-child(2) {
-    font-size: 10%
-}
-.paneltab > h1:nth-child(2):hover {
-  font-size: 100%
-}
-.paneltab > h1:nth-child(3) {
-    font-size: 10%
-}
-.paneltab > h1:nth-child(3):hover {
-  font-size: 100%
-}
-.paneltab > h1:nth-child(4) {
-    font-size: 10%
-}
-.paneltab > h1:nth-child(4):hover {
-  font-size: 100%
+.menubar {
+  position: fixed;
+  top: 90%;
+  left: 5%;
+  width: 85%;
+  padding: 15px;
+  border: 3px burlywood solid;
+  border-radius: 20px;
+  background-color: coral;
 }
