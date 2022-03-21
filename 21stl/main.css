@@ -1,0 +1,88 @@
+body {
+  background-color: black;
+  font-family: sans-serif;
+  font-size: 80%;
+}
+.img1{
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  height: 100%;
+  width: 100%;
+}
+.img2{
+  position: absolute;
+  top: 100%;
+  left: 0%;
+  height: 130%;
+  width: 100%;
+}
+.img3{
+  position: absolute;
+  top: 230%;
+  left: 0%;
+  height: 130%;
+  width: 100%;
+}
+.img4 {
+  position: absolute;
+  top: 360%;
+  left: 0%;
+  height: 100%;
+  width: 100%;
+}
+.footerpanel {
+  background-color: bisque;
+  padding: 10px;
+  border:1px none solid;
+  border-radius: 15px;
+  position: fixed;
+  top: 90%;
+  left: 25%;
+  transition: top 1s ease-in-out;
+}
+.footerpanel:hover {
+  top: 70%;
+}
+.fpcontent {
+  background-color: lightgray;
+  padding: 20px;
+  border: 1px none solid;
+  border-radius: 15px;
+}
+.header1{
+  position: absolute;
+  top: 12%;
+  left: 2%;
+  padding: 16px;
+  border:1px none solid;
+  border-radius: 15px;
+  background-color: bisque;
+}
+.header2 {
+  position: absolute;
+  top: 144%;
+  left: 24%;
+  padding: 16px;
+  border:1px none solid;
+  border-radius: 15px;
+  background-color: bisque;
+}
+.header3 {
+  position: absolute;
+  top: 244%;
+  left: 36%;
+  padding: 16px;
+  border:1px none solid;
+  border-radius: 15px;
+  background-color: bisque;
+}
+.header4 {
+  position: absolute;
+  top: 374%;
+  left: 12%;
+  padding: 16px;
+  border:1px none solid;
+  border-radius: 15px;
+  background-color: bisque;
+}
