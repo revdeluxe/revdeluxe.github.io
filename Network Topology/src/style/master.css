@@ -1,6 +1,46 @@
 body {
   font-size: 120%;
-  font-family: sans-serif;
+  font-family: pixel;
   margin-left: 12%;
   margin-right: 15%;
+  color: #04253A;
+  background-color:#E1DDBF;
+}
+@font-face {
+  font-family: pixel;
+  src: url(SFPixelate.ttf);
+}
+@font-face {
+  font-family: pixel;
+  src: url(SFPixelate-Bold.ttf);
+  font-weight: bold;
+}
+@font-face {
+  font-family: pixel;
+  src: url(SFPixelate-Oblique.ttf);
+  font-style: oblique;
+}
+@font-face {
+  font-family: pixel;
+  src: url(SFPixelate-BoldOblique.ttf);
+  font-style: oblique;
+  font-weight: bold;
+}
+h1, p {
+  padding: 15px;
+  border: 2px solid none;
+  border-radius: 16px;
+}
+h3 {
+  background-color: #4C837A;
+  color: #E1DDBF;
+  padding: 15px;
+  border: 2px solid none;
+  border-radius: 16px;
+  margin-right: 50%;
+}
+
+.busimg, .treeimg, .ringimg, .starimg, .meshimg, .hybridimg {
+  padding: 5px;
+  border: 2px dashed #04253A;
 }
