@@ -1,4 +1,3 @@
-# revdeluxe.github.io
-Efficacy of Learning Logic through the use of Learning tools: Gaming Platforms
-This a schoolwork repository<br>
-any changes should be logged or commited accordingly
+# Personal Website
+
+Hi I See that you have stumbled upon the repository of my website.

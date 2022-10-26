@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>October 24, 2022</title>
+        <title>October 26, 2022</title>
         <style>
             body {
                 margin-top: 2%;
@@ -25,14 +25,37 @@
                 border: 2px solid black;
                 padding: 12px;
                 border-radius: 12px;
+                top: 10px;
+                left: -200px;
                 position: fixed;
+                transition: left 0.4s ease-in-out;
+            }
+            .btoc:hover {
+                left: 10px;
+            }
+            .element{
+                margin: auto;
+            }
+            .codeblock {
+                font-family: monospace;
+                font-size: 12;
+                padding: 12px;
+                border-radius: 12px;
+                background-color: lightgray;
+                margin: 25px;
+            }
+            .breviewcontent {
+                margin-top: 10%;
+            }
+            p {
+                text-justify: auto;
             }
         </style>
     </head>
     <body>
         <div class="btoc">
             <input type="button" id="show" onclick="this.style.display='none';
-            document.getElementById('toc').style.display='block';
+            document.getElementById('toc').style.display='flex';
             document.getElementById('hide').style.display='block';
             " name="tocbtn" value="SHOW TABLE OF CONTENT">
             <input type="button" id="hide" onclick="this.style.display='none';
@@ -42,12 +65,21 @@
             <div class="toc" id="toc">
                 <h1 id="tableofcontents">Table of Contents</h1>
                 <hr>
-                <ul>
+                <ul class="element">
                     <li>Media Information Literacy</li>
                     <a href="Modules/mil/TVL-MIL12-Q1-M1.pdf" target="_blank">Module 1</a>
                     <a href="Modules/mil/TVL-MIL12-Q1-M2.pdf" target="_blank">Module 2</a>
                     <a href="Modules/mil/TVL-MIL12-Q1-M3.pdf" target="_blank">Module 3</a>
-                    <li>Health Optimizing Physical Education 3</li>
+                    <a href="./Modules/mil/TVL-MIL12-Q1-M10.pdf">Module 10</a>
+                    <a href="./Modules/mil/TVL-MIL12-Q1-M11.pdf">Module 11</a>
+                    <a href="./Modules/mil/TVL-MIL12-Q1-M12.pdf">MOdule 12</a>
+                    <a href="./Modules/mil/TVL-MIL12-Q1-M13.pdf">Module 13</a>
+                    <a href="./Modules/mil/TVL-MIL12-Q1-M14.pdf">Module 14</a>
+                    <a href="./Modules/mil/TVL-MIL12-Q1-M15.pdf">Module 15</a>
+                    <a href="./Modules/mil/TVL-MIL12-Q1-M16.pdf">Module 16</a>
+                    <a href="./Modules/mil/TVL-MIL12-Q1-M17.pdf" target="_blank">Module 17</a>
+                    <a href="./Modules/mil/TVL-MIL12-Q1-M18.pdf">Module 18</a>
+                     <li>Health Optimizing Physical Education 3</li>
                     <a href="Modules/hope/Copy-of-HOPE-3-Q1-M1.pdf" target="_blank">Module 1</a>
                     <li>Piling Larang</li>
                     <a href="Modules/pl/FIL12-Q1-M1-TekBok.pdf" target="_blank">Module 1</a>
@@ -72,8 +104,6 @@
                     <li>Inquiry, Investigation, Immersion</li>
                     <a href="Modules/iii/III12_q1_mod1_BrainstormingforResearchTopics.pdf" target="_blank">Module 1</a>
                     <a href="Modules/iii/ORGANIZATION-OF-PRACTRESEARCH.docx" target="_blank">Parts of Research (Download)</a>
-                    <li>Research Referrences (Courtesy of Antonio De Guzman)</li>
-
                     <li>Personal Development</li>
                     <a href="Modules/pd/personaldevelopment_q1_mod1_knowingoneselfstrengthsandlimitations_v2-1.pdf" target="_blank">Module 1</a>
                     <a href="Modules/pd/personaldevelopment_q1_mod2_knowingoneselfcharacteristicshabitsandexperiences_v2.pdf" target="_blank">Module 2</a>
@@ -106,6 +136,33 @@
                     <li>Not on Modules</li>
                 </ul>
             </div>
+        </div>
+        <div class="breviewcontent">
+            <h1 id="mil">Meda Information Literacy</h1>
+            <hr>
+            <br>
+            
+            <h1 id="hope">Health Optimizing Physical Education</h1>
+            <hr>
+            <br>
+            <h1 id="pil">Piling Larang</h1>
+            <hr>
+            <br>
+            <h1 id="oc">Oral Communication</h1>
+            <hr>
+            <br>
+            <h1 id="iii">Inquiry, Investigation, & Immersion</h1>
+            <hr>
+            <br>
+            <h1 id="pd">Personal Development</h1>
+            <hr>
+            <br>
+            <h1 id="css">Computer System Servicing 5</h1>
+            <hr>
+            <br>
+            <h1 id="pr">Programming</h1>
+            <hr>
+            <br>
         </div>
     </body>
 </html>
