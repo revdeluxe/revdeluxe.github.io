@@ -1,0 +1,115 @@
+<html>
+    <head>
+        <title>The Orchestra of the Filipino Youth</title>
+        <style>
+            body {
+                overflow: hidden;
+                background-image: url("night.jpeg");
+                background-size: 101%;
+                background-position: -5%;
+                background-repeat:  no-repeat;
+            }
+            .flogo {
+                position: relative;
+                width: 180px;
+            }
+            header {
+                color: aqua;
+                top: 5%;
+                left: 100%;
+                position: static;
+            }
+            nav {
+                color: inherit;
+                position: absolute;
+                top: 6%;
+                left: 90%;
+                border: 0cm none;
+            }
+            footer {
+                color: aqua;
+                font-family: sans-serif;
+                position: relative;
+                top: 75%;
+                left: 5%;
+            }
+            #title {
+                font-family: sans-serif;
+                color: black;
+                position: absolute;
+                font-size: 24px;
+                top: 70%;
+                left: 70%;
+                width: 500px;
+                overflow: hidden;
+                
+                border: 35px cyan solid;
+                background-color:cyan;
+                border-radius: 50px;
+            }
+            .dropdown {
+                display:block;
+                position:relative;
+                top: 10%;
+                padding: 20px;
+                border: 0px none;
+                border-radius: 15px;
+                background-color: gold;
+            }
+
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                background-color: #f9f9f9;
+                min-width: 160px;
+                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                padding: 12px 16px;
+                z-index: 1;
+            }
+
+            .dropdown:hover .dropdown-content {
+            display: block;
+            }
+
+            bar {
+                padding: 3px;
+                background-color: black;
+                margin: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <img class="flogo" src="logo.png" alt="logo">
+            <nav>
+                <div class="dropdown">
+                    <bar></bar>
+                    <bar></bar>
+                    <bar></bar>
+                    <span class="dropdown-content">
+                        <table>
+                            <tr>
+                                <td><a href="#">Home</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">The Advocacy</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">Author</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">About</a></td>
+                            </tr>
+                        </table>
+                    </span>
+                </div>
+            </nav>
+        </header>
+        <div id="title">
+            <h1>The Orchestra of <br> the Filipino Youth</h1>
+        </div>
+    </body>
+    <footer>
+        <p>Made By Richard Josh, Villareal</p>
+    </footer>
+</html>
