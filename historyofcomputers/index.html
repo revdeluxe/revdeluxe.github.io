@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title></title>
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="dist/theme/league.css" id="theme" />
+    <link rel="stylesheet" href="plugin/highlight/zenburn.css" />
+	<link rel="stylesheet" href="css/layout.css" />
+	<link rel="stylesheet" href="plugin/customcontrols/style.css">
+
+
+
+    <script defer src="dist/fontawesome/all.min.js"></script>
+
+	<script type="text/javascript">
+		var forgetPop = true;
+		function onPopState(event) {
+			if(forgetPop){
+				forgetPop = false;
+			} else {
+				parent.postMessage(event.target.location.href, "app://obsidian.md");
+			}
+        }
+		window.onpopstate = onPopState;
+		window.onmessage = event => {
+			if(event.data == "reload"){
+				window.document.location.reload();
+			}
+			forgetPop = true;
+		}
+
+		function fitElements(){
+			const itemsToFit = document.getElementsByClassName('fitText');
+			for (const item in itemsToFit) {
+				if (Object.hasOwnProperty.call(itemsToFit, item)) {
+					var element = itemsToFit[item];
+					fitElement(element,1, 1000);
+					element.classList.remove('fitText');
+				}
+			}
+		}
+
+		function fitElement(element, start, end){
+
+			let size = (end + start) / 2;
+			element.style.fontSize = `${size}px`;
+
+			if(Math.abs(start - end) < 1){
+				while(element.scrollHeight > element.offsetHeight){
+					size--;
+					element.style.fontSize = `${size}px`;
+				}
+				return;
+			}
+
+			if(element.scrollHeight > element.offsetHeight){
+				fitElement(element, start, size);
+			} else {
+				fitElement(element, size, end);
+			}		
+		}
+
+
+		document.onreadystatechange = () => {
+			fitElements();
+			if (document.readyState === 'complete') {
+				if (window.location.href.indexOf("?export") != -1){
+					parent.postMessage(event.target.location.href, "app://obsidian.md");
+				}
+				if (window.location.href.indexOf("print-pdf") != -1){
+					let stateCheck = setInterval(() => {
+						clearInterval(stateCheck);
+						window.print();
+					}, 250);
+				}
+			}
+	};
+
+
+        </script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<grid absolute="true" drag="100 100" drop="0 0"></script></section><section  data-markdown><script type="text/template"># History of Computers
+</grid></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## 1.1: The Learning points 
+
+To Educate the learners about:
+
+1. **The Evolution of Computing Devices**
+2. **Charles Babbage and the Analytical Engine**
+3. **Electronic Computers and ENIAC**
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## 1.2: The Learning points
+
+4. **The Turing Machine and Computational Theory**
+5. **Transistor Revolution**
+6. **Personal Computer Revolution**
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## 1.3: The Learning points
+ 
+7. **Operating Systems and Software**
+8. **The Internet Era**
+9. **Mobile Computing and Cloud Technology**
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## 1.4: The Learning points
+10. **Emerging Technologies**
+11. **Continuous Innovation**
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: style="background: rgba(24,24,24,80%); border-radius: 35px" class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## 1: The First Known computer 
+# 3000 BC 
+
+The Abacus is one of the earliest known computing devices,
+used for basic arithmetic calculations 
+
+
+<!-- .slide: data-background-image="abacuz.jpg" -->
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: style="background: rgba(24,24,24,80%); border-radius: 35px" class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## 1.1: The First Known computer 
+Antikythera Mechanism (c. 100-87 BC): <br>
+An ancient Greek analog computer used <br>
+to predict astronomical positions and eclipses<br>
+<!-- .slide: data-background-image="AntikytheraMechanism.jpg" -->
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" data-background-image="AMR.jpg" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: style="background: rgba(24,24,24,80%); border-radius: 35px" class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## 2:  The Analytical Engine (1837):
+
+- Designed by Charles Babbage, the Analytical Engine is considered the first general-purpose mechanical computer. Although it was never built during Babbage's lifetime, it laid the conceptual foundation for future computing machines.
+
+<!-- .slide: data-background-image="analyticalengine.jpg" -->
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: style="background: rgba(24,24,24,80%); border-radius: 35px" class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## 3:  Early Mechanical and Electromechanical Computers (Late 19th and Early 20th Century):
+
+- Herman Hollerith's Tabulating Machine (1889): Used punched cards to process and analyze data, primarily for census purposes.
+- Konrad Zuse's Z3 (1941): The Z3 is considered the world's first electromechanical, programmable computer.
+
+<!-- .slide: data-background-image="ElectromechanicalComputers.jpg" -->
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: style="background: rgba(24,24,24,80%); border-radius: 35px" class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## 4:  Electronic Computers and the Turing Machine (1940s):
+
+- ENIAC (1946): The Electronic Numerical Integrator and Computer (ENIAC) was one of the first general-purpose electronic digital computers.
+- Alan Turing's Turing Machine (1936): Turing's theoretical machine laid the foundation for modern computer science and the concept of algorithmic computation.
+
+<!-- .slide: data-background-image="turingmac.jpg" -->
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: style="background: rgba(24,24,24,80%); border-radius: 35px" class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## 5: The First Generation of Computers (1940s-1950s):
+
+ - UNIVAC (1951): The Universal Automatic Computer (UNIVAC) was one of the first commercially produced computers.
+ - IBM 701 (1952): IBM's first commercially successful computer.
+
+<!-- .slide: data-background-image="FirstGenComputer.png" -->
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: style="background: rgba(24,24,24,80%); border-radius: 35px" class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## 6: Transistors and Miniaturization (1950s-1960s):
+
+- Invention of the transistor (1947) revolutionized computing by replacing vacuum tubes and enabling smaller, more reliable computers.
+- IBM System/360 (1964): A family of compatible mainframe computers that set industry standards for compatibility and software development.
+
+<!-- .slide: data-background-image="Tranzystory_RD.jpg" -->
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: style="background: rgba(24,24,24,80%); border-radius: 35px" class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## 7: The Personal Computer Revolution (1970s-1980s):
+
+- Altair 8800 (1975): Often considered the first personal computer kit.
+- Apple II (1977) and IBM PC (1981): These machines marked the beginning of the personal computer era.
+- Microsoft Windows (1985): Microsoft's operating system played a significant role in the PC's success.
+
+<!-- .slide: data-background-image="PC5150_color_a.jpg" -->
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: style="background: rgba(24,24,24,80%); border-radius: 35px" class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## 8: Advancements in Microprocessors and the Internet (1980s-Present):
+
+- The development of microprocessors and microcomputers revolutionized computing by making computers smaller, cheaper, and more accessible.
+- The World Wide Web, created by Tim Berners-Lee in 1989, led to the explosion of the internet and the digital age.
+
+<!-- .slide: data-background-image="Arduino-ide-w-EuroLinux-9-Desktop.png" -->
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: style="background: rgba(24,24,24,80%); border-radius: 35px" class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## 9: Mobile Computing and Cloud Technology (2000s-Present):
+
+- The rise of smartphones and tablets brought computing to a wide range of portable devices.
+- Cloud computing has transformed the way we store, access, and process data.
+
+<!-- .slide: data-background-image="phone.jpg" -->
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: style="background: rgba(24,24,24,80%); border-radius: 35px" class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## 10: Quantum Computing and Artificial Intelligence (Present and Future):
+
+
+- Quantum computers have the potential to revolutionize computing by solving complex problems more efficiently.
+- Artificial intelligence and machine learning are at the forefront of technological advancements, with applications in various fields.
+
+<!-- .slide: data-background-image="14-july_google-quantum-error.webp" -->
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+Appendix
+https://neoskosmos.com/en/2023/03/24/news/australia/unveiling-the-secrets-of-the-worlds-first-computer-the-antikythera-mechanism-replica-in-perth/
+
+https://chat.openai.com/share/f98a2ce3-1728-4d7d-b247-68e6932f957d
+</div></script></section></div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script src="plugin/zoom/zoom.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/math/math.js"></script>
+	<script src="plugin/mermaid/mermaid.js"></script>
+	<script src="plugin/chart/chart.min.js"></script>
+	<script src="plugin/chart/plugin.js"></script>
+	<script src="plugin/customcontrols/plugin.js"></script>
+
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+	  function isLight(color) {
+		let hex = color.replace('#', '');
+
+		// convert #fff => #ffffff
+		if(hex.length == 3){
+			hex = `${hex[0]}${hex[0]}${hex[1]}${hex[1]}${hex[2]}${hex[2]}`;
+		}
+
+		const c_r = parseInt(hex.substr(0, 2), 16);
+		const c_g = parseInt(hex.substr(2, 2), 16);
+		const c_b = parseInt(hex.substr(4, 2), 16);
+		const brightness = ((c_r * 299) + (c_g * 587) + (c_b * 114)) / 1000;
+		return brightness > 155;
+	}
+
+	var bgColor = getComputedStyle(document.documentElement).getPropertyValue('--r-background-color').trim();
+	var isLight = isLight(bgColor);
+
+	if(isLight){
+		document.body.classList.add('has-light-background');
+	} else {
+		document.body.classList.add('has-dark-background');
+	}
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath.MathJax3,
+		  RevealMermaid,
+		  RevealChart,
+		  RevealCustomControls,
+        ],
+
+
+    	allottedTime: 120 * 1000,
+
+		mathjax3: {
+			mathjax: 'plugin/math/mathjax/tex-mml-chtml.js',
+		},
+		markdown: {
+		  gfm: true,
+		  mangle: true,
+		  pedantic: false,
+		  smartLists: false,
+		  smartypants: false,
+		},
+
+		mermaid: {
+			theme: isLight ? 'default' : 'dark',
+		},
+
+		customcontrols: {
+			controls: [
+			]
+		},
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {"width":960,"height":700,"margin":0.04,"controls":true,"progress":true,"slideNumber":true,"transition":"slide","transitionSpeed":"fast"}, queryOptions);
+    </script>
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+
+  <!-- created with Advanced Slides -->
+</html>
