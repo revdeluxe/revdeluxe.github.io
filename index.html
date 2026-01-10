@@ -1,12 +1,488 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Welcome to my Webpage</title>
-    <link rel="stylesheet" href="./css/home.css">
-  </head>
-  <body>
- 	<h1>Under Development</h1>
-	<a href="./historyofcomputers/index.html">History of Computers Slides</a>
-  </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Richard Josh Villareal | Rust, NetSec & Engineering</title>
+    <style>
+        /* --- VARIABLES --- */
+        :root {
+            --bg-color: #1a1b26;
+            --text-main: #a9b1d6;
+            --text-bright: #c0caf5;
+            --accent: #e0af68;      /* Rust Orange */
+            --accent-sec: #7aa2f7;  /* Arch Blue */
+            --card-bg: rgba(36, 40, 59, 0.85);
+            --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+            --font-sans: system-ui, -apple-system, sans-serif;
+        }
+
+        /* --- RESET & CORE --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- BACKGROUND CANVAS --- */
+        #network-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.25;
+        }
+
+        /* --- CONTAINER --- */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        a { color: var(--accent-sec); text-decoration: none; transition: 0.2s; }
+        a:hover { color: var(--accent); }
+
+        /* --- HEADER & TYPEWRITER --- */
+        header { border-bottom: 2px solid var(--card-bg); padding-bottom: 2rem; margin-bottom: 2.5rem; }
+        h1 { color: var(--text-bright); font-size: 2.5rem; letter-spacing: -1px; margin-bottom: 0.5rem; }
+        
+        .subtitle-wrapper { font-family: var(--font-mono); font-size: 1.1rem; color: var(--accent); height: 1.5em; display: flex; align-items: center; }
+        .cursor { display: inline-block; width: 8px; height: 1.2rem; background: var(--accent); margin-left: 5px; animation: blink 1s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        .contact-bar { margin-top: 1rem; font-family: var(--font-mono); font-size: 0.9rem; display: flex; flex-wrap: wrap; gap: 1.5rem; }
+
+        /* --- SECTIONS --- */
+        h2 {
+            color: var(--text-bright);
+            font-size: 1.5rem;
+            border-left: 4px solid var(--accent);
+            padding-left: 1rem;
+            margin: 3.5rem 0 1.5rem 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- FILTER BUTTONS --- */
+        .filter-container { margin-bottom: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .filter-btn {
+            background: transparent;
+            border: 1px solid var(--text-main);
+            color: var(--text-main);
+            padding: 0.4rem 1rem;
+            cursor: pointer;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            border-color: var(--accent);
+            color: var(--bg-color);
+            background: var(--accent);
+        }
+
+        /* --- PROJECT CARDS --- */
+        .project-item {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(5px);
+            display: block; /* For filtering logic */
+        }
+        .project-item:hover { 
+            border-color: var(--accent-sec); 
+            transform: translateY(-4px); 
+            box-shadow: 0 10px 20px -10px rgba(0,0,0,0.5);
+        }
+        
+        .project-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; margin-bottom: 0.5rem; }
+        .project-title { color: var(--text-bright); font-weight: bold; font-size: 1.2rem; }
+        .project-stack { font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent); }
+        .project-desc { font-size: 0.95rem; margin-bottom: 0.8rem; font-style: italic; opacity: 0.9; }
+        .project-bullets { list-style: none; padding-left: 0; }
+        .project-bullets li { position: relative; padding-left: 1.2rem; margin-bottom: 0.4rem; font-size: 0.9rem; }
+        .project-bullets li::before { content: "•"; color: var(--accent-sec); position: absolute; left: 0; font-weight: bold; }
+
+        /* --- SKILLS GRID --- */
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+        .skill-cat h3 { color: var(--accent-sec); font-size: 1rem; margin-bottom: 0.8rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.4rem;}
+        .skill-list { list-style: none; font-size: 0.95rem; }
+        .skill-list li { margin-bottom: 0.3rem; }
+        .skill-list li::before { content: "› "; color: var(--accent); font-weight: bold; }
+
+        /* --- EDUCATION & FOOTER --- */
+        footer { margin-top: 5rem; text-align: center; font-size: 0.8rem; color: #565f89; border-top: 1px solid var(--card-bg); padding-top: 1.5rem; }
+        .btn-resume {
+            display: inline-block;
+            margin-top: 0.8rem;
+            padding: 0.6rem 1.2rem;
+            background: var(--accent-sec);
+            color: var(--bg-color);
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-resume:hover { filter: brightness(1.1); }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 600px) {
+            h1 { font-size: 1.8rem; }
+            .container { padding: 1.5rem; }
+            .project-header { flex-direction: column; }
+            .project-stack { margin-top: 0.2rem; }
+            .contact-bar { flex-direction: column; gap: 0.5rem; }
+        }
+
+        /* --- PRINT STYLES (RESUME MODE) --- */
+        @media print {
+            @page { margin: 0.5cm; }
+            body { background: white; color: black; font-size: 11pt; }
+            #network-canvas, .filter-container, .btn-resume, footer .no-print, .subtitle-wrapper .cursor { display: none !important; }
+            .container { max-width: 100%; padding: 0; }
+            
+            /* Compact Header */
+            header { border-bottom: 1px solid #000; margin-bottom: 1rem; padding-bottom: 0.5rem; }
+            h1 { color: black; margin: 0; font-size: 22pt; }
+            .subtitle-wrapper { color: #333; height: auto; display: block; margin-top: 5px; font-weight: bold; }
+            .contact-bar { margin-top: 5px; gap: 1rem; color: #000; }
+            a { color: black; text-decoration: none; }
+
+            /* Compact Sections */
+            h2 { color: black; border-color: black; margin: 1.5rem 0 0.5rem 0; font-size: 14pt; padding-left: 0; border-left: none; border-bottom: 2px solid #000; }
+            
+            /* Compact Projects */
+            .project-item { background: none; border: none; padding: 0; margin-bottom: 1rem; box-shadow: none; backdrop-filter: none; break-inside: avoid; }
+            .project-item[data-category="hidden-print"] { display: none; } /* Hide less relevant items if needed */
+            .project-header { margin-bottom: 0.2rem; }
+            .project-title { color: black; font-size: 12pt; }
+            .project-stack { color: #444; font-weight: bold; font-size: 9pt; }
+            .project-desc { color: #222; margin-bottom: 0.3rem; font-style: normal; }
+            .project-bullets li { margin-bottom: 0.1rem; color: #000; }
+            .project-bullets li::before { color: #000; }
+
+            /* Compact Skills */
+            .skills-grid { gap: 1rem; display: flex; flex-wrap: wrap; }
+            .skill-cat { flex: 1; min-width: 150px; }
+            .skill-cat h3 { color: black; border-bottom: 1px solid #ccc; margin-bottom: 0.3rem; font-size: 11pt; }
+            .skill-list li::before { color: #000; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="network-canvas"></canvas>
+
+    <div class="container">
+        <header>
+            <h1>Richard Josh Villareal</h1>
+            <div class="subtitle-wrapper">
+                <span id="typewriter"></span><span class="cursor"></span>
+            </div>
+            <div class="contact-bar">
+                <span>📍 Manila, PH</span>
+                <span><a href="https://github.com/revdeluxe">github.com/revdeluxe</a></span>
+                <span><a href="https://linkedin.com/in/richardjosh">linkedin.com/in/richardjosh</a></span>
+                <span>📧 revchannel01@gmail.com</span>
+                <span>📱 0949 696 0002</span>
+            </div>
+        </header>
+
+        <section>
+            <h2>Technical Arsenal</h2>
+            <div class="skills-grid">
+                <div class="skill-cat">
+                    <h3>Languages & Core</h3>
+                    <ul class="skill-list">
+                        <li>Rust (Rocket, Tauri, Tokio)</li>
+                        <li>Python (TensorFlow, Automation)</li>
+                        <li>C++ / SQL (SurrealDB) / PHP</li>
+                    </ul>
+                </div>
+                <div class="skill-cat">
+                    <h3>Infrastructure & NetSec</h3>
+                    <ul class="skill-list">
+                        <li>Proxmox VE / Virtualization</li>
+                        <li>VyOS & OPNsense Firewalls</li>
+                        <li>SDN Architecture / Linux (Arch)</li>
+                    </ul>
+                </div>
+                <div class="skill-cat">
+                    <h3>Hardware & Tools</h3>
+                    <ul class="skill-list">
+                        <li>Embedded (Raspberry Pi/LoRa)</li>
+                        <li>Custom ROM Dev (TWRP/Android)</li>
+                        <li>Git / Docker / VS Code</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Engineering Projects</h2>
+            
+            <div class="filter-container no-print">
+                <button class="filter-btn active" onclick="filterProjects('all')">All</button>
+                <button class="filter-btn" onclick="filterProjects('rust')">Rust/Systems</button>
+                <button class="filter-btn" onclick="filterProjects('infra')">Infrastructure</button>
+                <button class="filter-btn" onclick="filterProjects('hardware')">Hardware</button>
+                <button class="filter-btn" onclick="filterProjects('web')">Web</button>
+            </div>
+
+            <div class="project-item" data-category="rust">
+                <div class="project-header">
+                    <span class="project-title">Crabflow SDN Controller</span>
+                    <span class="project-stack">[Rust, Tauri, Svelte, SurrealDB]</span>
+                </div>
+                <div class="project-desc">
+                    A high-performance Software-Defined Networking controller with a real-time reactive dashboard.
+                </div>
+                <ul class="project-bullets">
+                    <li>Architected a memory-safe SDN controller using Rust, minimizing runtime overhead for packet handling.</li>
+                    <li>Engineered a cross-platform desktop UI using Tauri to visualize network topology changes in real-time.</li>
+                    <li>Implemented asynchronous state management to handle multiple network nodes concurrently.</li>
+                </ul>
+            </div>
+
+            <div class="project-item" data-category="infra">
+                <div class="project-header">
+                    <span class="project-title">Bastion Network Framework</span>
+                    <span class="project-stack">[Proxmox, VyOS, OPNsense]</span>
+                </div>
+                <div class="project-desc">
+                    Modular network security infrastructure designed for educational simulation and penetration testing.
+                </div>
+                <ul class="project-bullets">
+                    <li>Orchestrated a virtualized environment using Proxmox to simulate enterprise-grade attack scenarios.</li>
+                    <li>Integrated VyOS for advanced routing (BGP/OSPF) and OPNsense for stateful firewall inspection.</li>
+                    <li>Automated the provisioning of secure "Bastion Hosts" to reduce internal network attack surfaces.</li>
+                </ul>
+            </div>
+
+            <div class="project-item" data-category="hardware">
+                <div class="project-header">
+                    <span class="project-title">Lenovo Tab M7 Custom Recovery</span>
+                    <span class="project-stack">[C, Makefile, Linux Kernel]</span>
+                </div>
+                <div class="project-desc">
+                    Porting Team Win Recovery Project (TWRP) to unsupported hardware.
+                </div>
+                <ul class="project-bullets">
+                    <li>Compiled the Android kernel from source, patching drivers to support the TWRP recovery environment.</li>
+                    <li>Reverse-engineered proprietary partition tables to enable custom firmware flashing on locked devices.</li>
+                </ul>
+            </div>
+
+            <div class="project-item" data-category="hardware">
+                <div class="project-header">
+                    <span class="project-title">LoRa SPI Driver Library</span>
+                    <span class="project-stack">[Python, SPI, Embedded Systems]</span>
+                </div>
+                <div class="project-desc">
+                    Low-power communication driver for Long Range (LoRa) IoT modules.
+                </div>
+                <ul class="project-bullets">
+                    <li>Developed a custom SPI interface library for low-power IoT applications using Python.</li>
+                    <li>Optimized data transmission protocols for reliable long-range communication in constrained environments.</li>
+                </ul>
+            </div>
+
+            <div class="project-item" data-category="web">
+                <div class="project-header">
+                    <span class="project-title">Stem Career Development Platform</span>
+                    <span class="project-stack">[Full Stack Web Development]</span>
+                </div>
+                <div class="project-desc">
+                    Web platform dedicated to tracking and developing STEM career paths.
+                </div>
+                <ul class="project-bullets">
+                    <li>Architecting the backend systems and frontend user experience for scalability.</li>
+                    <li>Implementing user tracking logic to provide personalized career roadmap suggestions.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>Parallel Professionalism</h2>
+            <div class="project-item" data-category="music" style="border-left: 3px solid var(--accent);">
+                <div class="project-header">
+                    <span class="project-title">Professional String Ensemble & Instruction</span>
+                    <span class="project-stack">[Freelance / Top Pro]</span>
+                </div>
+                <div class="project-desc">
+                    Professional multi-instrumentalist and Music Theory Instructor.
+                </div>
+                <ul class="project-bullets">
+                    <li><strong>Performance:</strong> Cellist, Double Bassist, and Violinist for high-profile events and weddings.</li>
+                    <li><strong>Instruction:</strong> Instructor for Music Theory 101/102 and Music Literature.</li>
+                    <li><strong>Discipline:</strong> Applying the rigorous discipline of orchestral coordination to engineering team dynamics.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>Education</h2>
+            <div class="project-item" style="padding: 0; background: none; border: none; box-shadow: none;">
+                <div class="project-header">
+                    <span class="project-title">BS in Computer Science</span>
+                    <span class="project-stack">2023 - Present</span>
+                </div>
+                <div style="color: var(--text-main);">Eulogio "Amang" Rodriguez Institute of Science and Technology (EARIST)</div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="no-print">
+                <p>Built with plain HTML/CSS/JS. Hosted on GitHub Pages.</p>
+                <div class="btn-resume" onclick="window.print()">Download PDF Resume</div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // --- 1. TYPEWRITER EFFECT ---
+        const roles = [
+            "CS Student @ EARIST", 
+            "Rust Developer", 
+            "Network Security Enthusiast", 
+            "Professional Musician",
+            "Hardware Modder"
+        ];
+        let roleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typeSpeed = 80;
+        const deleteSpeed = 40;
+        const pauseTime = 2000;
+        const element = document.getElementById('typewriter');
+
+        function type() {
+            const currentRole = roles[roleIndex];
+            
+            if (isDeleting) {
+                element.textContent = currentRole.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                element.textContent = currentRole.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            if (!isDeleting && charIndex === currentRole.length) {
+                isDeleting = true;
+                setTimeout(type, pauseTime);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                roleIndex = (roleIndex + 1) % roles.length;
+                setTimeout(type, 500);
+            } else {
+                setTimeout(type, isDeleting ? deleteSpeed : typeSpeed);
+            }
+        }
+        document.addEventListener('DOMContentLoaded', type);
+
+        // --- 2. PROJECT FILTERS ---
+        function filterProjects(category) {
+            const projects = document.querySelectorAll('.project-item');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.innerText.toLowerCase().includes(category) || 
+                   (category === 'all' && btn.innerText === 'All')) {
+                    btn.classList.add('active');
+                }
+            });
+
+            projects.forEach(project => {
+                // Always show Music section regardless of filter unless we specifically filter for it later
+                if(project.dataset.category === 'music') return; 
+
+                if (category === 'all' || project.dataset.category === category) {
+                    project.style.display = 'block';
+                    project.style.opacity = '0';
+                    setTimeout(() => project.style.opacity = '1', 50);
+                } else {
+                    project.style.display = 'none';
+                }
+            });
+        }
+
+        // --- 3. NETWORK PARTICLES BACKGROUND ---
+        const canvas = document.getElementById('network-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2 + 1;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+            draw() {
+                ctx.fillStyle = '#7aa2f7'; 
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const count = window.innerWidth < 600 ? 20 : 60; 
+            for (let i = 0; i < count; i++) particles.push(new Particle());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                for (let j = i; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx*dx + dy*dy);
+                    if (distance < 150) {
+                        ctx.strokeStyle = `rgba(122, 162, 247, ${1 - distance/150})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+
+        initParticles();
+        animate();
+    </script>
+</body>
 </html>
