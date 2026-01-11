@@ -3,485 +3,749 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Richard Josh Villareal | Rust, NetSec & Engineering</title>
+    <title>Richard Josh Villareal | Engineering Portfolio</title>
     <style>
-        /* --- VARIABLES --- */
+        /* =========================================
+           "AT A GLANCE" THEME (Professional Light)
+           ========================================= */
         :root {
-            --bg-color: #1a1b26;
-            --text-main: #a9b1d6;
-            --text-bright: #c0caf5;
-            --accent: #e0af68;      /* Rust Orange */
-            --accent-sec: #7aa2f7;  /* Arch Blue */
-            --card-bg: rgba(36, 40, 59, 0.85);
+            --bg-color: #f8f9fa;        
+            --text-main: #2d3748;       
+            --text-muted: #718096;      
+            --accent: #dd6b20;          
+            --accent-sec: #3182ce;      
+            --card-bg: #ffffff;         
+            --border: #e2e8f0;
+            
             --font-mono: 'JetBrains Mono', 'Courier New', monospace;
-            --font-sans: system-ui, -apple-system, sans-serif;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
-        /* --- RESET & CORE --- */
         * { box-sizing: border-box; margin: 0; padding: 0; }
+
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
             font-family: var(--font-sans);
             line-height: 1.6;
             overflow-x: hidden;
+            /* Disable selection to discourage copying if locked */
+            user-select: none; 
+            -webkit-user-select: none;
         }
+        
+        /* Re-enable selection if user is legitimate (handled via JS class) */
+        body.unlocked { user-select: text; -webkit-user-select: text; }
+
+        /* Hide the print resume on screen */
+        #resume-print-only { display: none; }
 
         /* --- BACKGROUND CANVAS --- */
         #network-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.25;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; 
+            opacity: 0.6; 
         }
 
         /* --- CONTAINER --- */
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2.5rem;
-            position: relative;
+        .web-container {
+            max-width: 1000px; 
+            margin: 0 auto; 
+            padding: 4rem 2rem; 
+            position: relative; 
             z-index: 1;
         }
 
-        a { color: var(--accent-sec); text-decoration: none; transition: 0.2s; }
-        a:hover { color: var(--accent); }
+        a { color: var(--accent-sec); text-decoration: none; font-weight: 500; transition: 0.2s; }
+        a:hover { color: var(--accent); text-decoration: underline; }
 
-        /* --- HEADER & TYPEWRITER --- */
-        header { border-bottom: 2px solid var(--card-bg); padding-bottom: 2rem; margin-bottom: 2.5rem; }
-        h1 { color: var(--text-bright); font-size: 2.5rem; letter-spacing: -1px; margin-bottom: 0.5rem; }
+        /* --- HERO SECTION --- */
+        header.hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 3rem;
+            margin-bottom: 5rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 3rem;
+        }
+
+        .hero-text { flex: 1; }
+
+        h1.hero-title {
+            font-size: 3rem;
+            line-height: 1.1;
+            color: #1a202c;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle-wrapper {
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
         
-        .subtitle-wrapper { font-family: var(--font-mono); font-size: 1.1rem; color: var(--accent); height: 1.5em; display: flex; align-items: center; }
-        .cursor { display: inline-block; width: 8px; height: 1.2rem; background: var(--accent); margin-left: 5px; animation: blink 1s infinite; }
+        .cursor { display: inline-block; width: 2px; height: 1.2em; background: var(--text-main); margin-left: 2px; vertical-align: bottom; animation: blink 1s infinite; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-        .contact-bar { margin-top: 1rem; font-family: var(--font-mono); font-size: 0.9rem; display: flex; flex-wrap: wrap; gap: 1.5rem; }
-
-        /* --- SECTIONS --- */
-        h2 {
-            color: var(--text-bright);
-            font-size: 1.5rem;
-            border-left: 4px solid var(--accent);
-            padding-left: 1rem;
-            margin: 3.5rem 0 1.5rem 0;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* --- FILTER BUTTONS --- */
-        .filter-container { margin-bottom: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
-        .filter-btn {
-            background: transparent;
-            border: 1px solid var(--text-main);
-            color: var(--text-main);
-            padding: 0.4rem 1rem;
-            cursor: pointer;
-            border-radius: 4px;
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            transition: all 0.2s;
-        }
-        .filter-btn:hover, .filter-btn.active {
-            border-color: var(--accent);
-            color: var(--bg-color);
-            background: var(--accent);
-        }
-
-        /* --- PROJECT CARDS --- */
-        .project-item {
-            background: var(--card-bg);
-            padding: 1.5rem;
-            border-radius: 6px;
+        .contact-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            font-size: 0.95rem;
+            color: var(--text-muted);
             margin-bottom: 1.5rem;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(5px);
-            display: block; /* For filtering logic */
         }
-        .project-item:hover { 
-            border-color: var(--accent-sec); 
-            transform: translateY(-4px); 
-            box-shadow: 0 10px 20px -10px rgba(0,0,0,0.5);
+        .contact-bar span { display: flex; align-items: center; gap: 0.4rem; }
+
+        /* Large Professional Photo */
+        .hero-img {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%; 
+            object-fit: cover;
+            border: 4px solid white;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            flex-shrink: 0;
+        }
+
+        /* --- REDACTION & GATE --- */
+        .private-data { display: none; } /* Hidden by default */
+        
+        /* The specific bio card that appears only when unlocked */
+        .bio-card-hidden {
+            display: none;
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: #fff5f5;
+            border: 1px solid #feb2b2;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #742a2a;
+        }
+        .bio-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+        }
+        .bio-item strong { margin-right: 5px; color: #9b2c2c; }
+
+        .redacted-badge {
+            background: #eee;
+            color: #777;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            cursor: not-allowed;
+            font-family: var(--font-mono);
         }
         
-        .project-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; margin-bottom: 0.5rem; }
-        .project-title { color: var(--text-bright); font-weight: bold; font-size: 1.2rem; }
-        .project-stack { font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent); }
-        .project-desc { font-size: 0.95rem; margin-bottom: 0.8rem; font-style: italic; opacity: 0.9; }
-        .project-bullets { list-style: none; padding-left: 0; }
-        .project-bullets li { position: relative; padding-left: 1.2rem; margin-bottom: 0.4rem; font-size: 0.9rem; }
-        .project-bullets li::before { content: "•"; color: var(--accent-sec); position: absolute; left: 0; font-weight: bold; }
-
-        /* --- SKILLS GRID --- */
-        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
-        .skill-cat h3 { color: var(--accent-sec); font-size: 1rem; margin-bottom: 0.8rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.4rem;}
-        .skill-list { list-style: none; font-size: 0.95rem; }
-        .skill-list li { margin-bottom: 0.3rem; }
-        .skill-list li::before { content: "› "; color: var(--accent); font-weight: bold; }
-
-        /* --- EDUCATION & FOOTER --- */
-        footer { margin-top: 5rem; text-align: center; font-size: 0.8rem; color: #565f89; border-top: 1px solid var(--card-bg); padding-top: 1.5rem; }
-        .btn-resume {
-            display: inline-block;
-            margin-top: 0.8rem;
-            padding: 0.6rem 1.2rem;
-            background: var(--accent-sec);
-            color: var(--bg-color);
-            border-radius: 4px;
-            font-weight: bold;
+        .btn-employer {
+            background-color: var(--text-main);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
             cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
             transition: 0.2s;
         }
-        .btn-resume:hover { filter: brightness(1.1); }
+        .btn-employer:hover { background-color: var(--accent); }
+        .btn-employer:disabled { background-color: #a0aec0; cursor: not-allowed; }
 
-        /* --- RESPONSIVE --- */
-        @media (max-width: 600px) {
-            h1 { font-size: 1.8rem; }
-            .container { padding: 1.5rem; }
-            .project-header { flex-direction: column; }
-            .project-stack { margin-top: 0.2rem; }
-            .contact-bar { flex-direction: column; gap: 0.5rem; }
+        /* --- MODAL --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .modal-title { font-size: 1.2rem; margin-bottom: 1rem; font-weight: bold; }
+        .modal-input {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        .modal-btn {
+            background: var(--accent-sec);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+        }
+        .modal-close {
+            margin-top: 1rem;
+            background: transparent;
+            border: none;
+            color: #777;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .error-msg { color: #e53e3e; font-size: 0.85rem; margin-top: 0.5rem; display: none; }
+
+        /* --- SECTIONS --- */
+        section { margin-bottom: 5rem; }
+        h2.section-title {
+            font-size: 1.5rem;
+            color: #1a202c;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        h2.section-title::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+
+        /* --- SKILLS GRID --- */
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        .skill-card {
+            background: var(--card-bg); padding: 1.5rem; border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); border: 1px solid var(--border);
+        }
+        .skill-card h3 { color: var(--accent-sec); font-size: 1rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; }
+        .skill-list { list-style: none; color: var(--text-main); font-size: 0.95rem; }
+        .skill-list li { margin-bottom: 0.5rem; display: flex; align-items: center; }
+        .skill-list li::before { content: "•"; color: var(--accent); margin-right: 0.5rem; font-weight: bold; }
+
+        /* --- FILTERS & PROJECTS --- */
+        .filter-container { margin-bottom: 2rem; display: flex; gap: 0.8rem; overflow-x: auto; padding-bottom: 5px; }
+        .filter-btn {
+            background: transparent; border: 1px solid var(--border); color: var(--text-muted);
+            padding: 0.5rem 1.2rem; cursor: pointer; border-radius: 20px; font-size: 0.9rem;
+            font-weight: 600; transition: all 0.2s; white-space: nowrap;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            border-color: var(--accent-sec); background: var(--accent-sec); color: white;
+            box-shadow: 0 4px 6px -1px rgba(49, 130, 206, 0.3);
         }
 
-        /* --- PRINT STYLES (RESUME MODE) --- */
+        .project-item {
+            background: var(--card-bg); padding: 2rem; border-radius: 12px; margin-bottom: 1.5rem;
+            border: 1px solid var(--border); transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .project-item:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05); border-color: var(--accent-sec); }
+        .project-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.8rem; }
+        .project-title { font-size: 1.25rem; font-weight: 700; color: #1a202c; }
+        
+        .tag-container { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem; }
+        .tech-tag {
+            font-family: var(--font-mono); font-size: 0.75rem; background: #edf2f7;
+            color: #4a5568; padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: 600;
+        }
+
+        .project-desc { color: var(--text-main); margin-bottom: 1rem; }
+        .project-links a { font-size: 0.9rem; margin-right: 1.5rem; color: var(--accent-sec); }
+        .project-links a:hover { color: #2b6cb0; }
+
+        /* --- FOOTER --- */
+        footer { margin-top: 5rem; text-align: center; padding-top: 2rem; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.9rem; }
+        .btn-print {
+            display: inline-block; margin-top: 1rem; padding: 0.6rem 1.5rem;
+            border: 2px solid var(--text-main); color: var(--text-main); border-radius: 6px;
+            font-weight: 600; cursor: pointer; transition: 0.2s;
+        }
+        .btn-print:hover { background: var(--text-main); color: white; }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            header.hero { flex-direction: column-reverse; text-align: center; gap: 2rem; }
+            .hero-img { width: 180px; height: 180px; }
+            .contact-bar { justify-content: center; }
+            .project-header { flex-direction: column; }
+        }
+
+        /* =========================================
+           PRINT STYLES (HIDDEN RESUME)
+           ========================================= */
         @media print {
-            @page { margin: 0.5cm; }
-            body { background: white; color: black; font-size: 11pt; }
-            #network-canvas, .filter-container, .btn-resume, footer .no-print, .subtitle-wrapper .cursor { display: none !important; }
-            .container { max-width: 100%; padding: 0; }
+            @page { margin: 0.5in; size: letter; }
             
-            /* Compact Header */
-            header { border-bottom: 1px solid #000; margin-bottom: 1rem; padding-bottom: 0.5rem; }
-            h1 { color: black; margin: 0; font-size: 22pt; }
-            .subtitle-wrapper { color: #333; height: auto; display: block; margin-top: 5px; font-weight: bold; }
-            .contact-bar { margin-top: 5px; gap: 1rem; color: #000; }
-            a { color: black; text-decoration: none; }
+            /* Hide Web Elements */
+            .web-container, #network-canvas, .filter-container, footer, .btn-employer, .modal-overlay { 
+                display: none !important; 
+            }
 
-            /* Compact Sections */
-            h2 { color: black; border-color: black; margin: 1.5rem 0 0.5rem 0; font-size: 14pt; padding-left: 0; border-left: none; border-bottom: 2px solid #000; }
+            /* Show Print Resume */
+            #resume-print-only { 
+                display: block !important; 
+                font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+                color: #000;
+                line-height: 1.4;
+                font-size: 10.5pt;
+            }
+
+            /* FLOAT LAYOUT (Bulletproof for PDF) */
+            .res-header-container {
+                width: 100%;
+                border-bottom: 1px solid #000;
+                padding-bottom: 10px;
+                margin-bottom: 20px;
+                overflow: hidden; 
+            }
+            .res-header-left { float: left; width: 75%; }
+            .res-header-right { float: right; width: 20%; text-align: right; }
+
+            .profile-img-print {
+                width: 100px; height: 100px; object-fit: cover; border: 1px solid #ccc;
+                display: block; margin-left: auto;
+            }
+
+            .res-name { font-size: 22pt; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+            .res-contact { margin-top: 5px; font-size: 9pt; }
             
-            /* Compact Projects */
-            .project-item { background: none; border: none; padding: 0; margin-bottom: 1rem; box-shadow: none; backdrop-filter: none; break-inside: avoid; }
-            .project-item[data-category="hidden-print"] { display: none; } /* Hide less relevant items if needed */
-            .project-header { margin-bottom: 0.2rem; }
-            .project-title { color: black; font-size: 12pt; }
-            .project-stack { color: #444; font-weight: bold; font-size: 9pt; }
-            .project-desc { color: #222; margin-bottom: 0.3rem; font-style: normal; }
-            .project-bullets li { margin-bottom: 0.1rem; color: #000; }
-            .project-bullets li::before { color: #000; }
+            .res-section-title { font-size: 12pt; font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #ccc; margin: 12px 0 8px 0; padding-bottom: 2px; clear: both; }
+            .res-item { margin-bottom: 10px; }
+            .res-row { display: flex; justify-content: space-between; font-weight: bold; }
+            .res-sub { font-style: italic; font-size: 10pt; margin-bottom: 2px; }
+            .res-repo-link { font-weight: normal; font-size: 0.9em; color: #444; margin-left: 5px; }
+            .res-list { margin-left: 1.2rem; padding: 0; list-style: square; }
+            .res-list li { margin-bottom: 2px; }
+            .res-skills-table { width: 100%; border-collapse: collapse; margin-top: 5px; }
+            .res-skills-table td { padding: 2px 0; vertical-align: top; }
+            .res-skill-cat { font-weight: bold; width: 120px; }
 
-            /* Compact Skills */
-            .skills-grid { gap: 1rem; display: flex; flex-wrap: wrap; }
-            .skill-cat { flex: 1; min-width: 150px; }
-            .skill-cat h3 { color: black; border-bottom: 1px solid #ccc; margin-bottom: 0.3rem; font-size: 11pt; }
-            .skill-list li::before { color: #000; }
+            /* Hidden Bio in Print (Reveals on Unlock) */
+            #print-bio-data { display: none; margin-bottom: 15px; font-size: 9pt; color: #333; }
+            .bio-row { margin-bottom: 2px; }
         }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false"> <canvas id="network-canvas"></canvas>
 
-    <canvas id="network-canvas"></canvas>
+    <div class="web-container">
+        <header class="hero">
+            <div class="hero-text">
+                <h1 class="hero-title">Richard Josh Villareal</h1>
+                <div class="subtitle-wrapper">
+                    <span id="typewriter"></span><span class="cursor"></span>
+                </div>
+                
+                <div class="contact-bar">
+                    <span>📍 Manila, PH</span>
+                    <span><a href="https://github.com/revdeluxe" target="_blank">GitHub</a></span>
+                    <span><a href="https://www.linkedin.com/in/richard-josh-villareal-222b73254/" target="_blank">LinkedIn</a></span>
+                    
+                    <span id="contact-gate">
+                        <span class="redacted-badge" title="Access Required">[Personal Info Redacted]</span>
+                    </span>
+                    <span class="private-data">
+                        <span>📱 +63 949 696 0002</span>
+                        <span>✉️ revchannel01@gmail.com</span>
+                    </span>
+                </div>
 
-    <div class="container">
-        <header>
-            <h1>Richard Josh Villareal</h1>
-            <div class="subtitle-wrapper">
-                <span id="typewriter"></span><span class="cursor"></span>
+                <button class="btn-employer" id="employerBtn" onclick="openModal()">
+                    🔒 I'm an Employer
+                </button>
+                <div id="lockoutMsg" class="error-msg" style="margin-top:5px;">System Locked. Max attempts reached.</div>
+
+                <div id="web-bio-card" class="bio-card-hidden">
+                    <div style="margin-bottom: 0.5rem; font-weight: bold; text-transform: uppercase;">Confidential Personal Data</div>
+                    <div class="bio-grid">
+                        <div class="bio-item"><strong>Birthdate:</strong> April 2, 2003</div>
+                        <div class="bio-item"><strong>Birthplace:</strong> Quezon City</div>
+                        <div class="bio-item"><strong>Citizenship:</strong> Filipino</div>
+                        <div class="bio-item"><strong>Civil Status:</strong> Single</div>
+                        <div class="bio-item"><strong>Gender:</strong> Male</div>
+                    </div>
+                </div>
             </div>
-            <div class="contact-bar">
-                <span>📍 Manila, PH</span>
-                <span><a href="https://github.com/revdeluxe">github.com/revdeluxe</a></span>
-                <span><a href="https://linkedin.com/in/richardjosh">linkedin.com/in/richardjosh</a></span>
-                <span>📧 revchannel01@gmail.com</span>
-                <span>📱 0949 696 0002</span>
-            </div>
+            
+            <img src="me.jpg" alt="Richard Josh Villareal" class="hero-img" onerror="this.src='https://github.com/revdeluxe.png'">
         </header>
 
         <section>
-            <h2>Technical Arsenal</h2>
+            <h2 class="section-title">Technical Arsenal</h2>
             <div class="skills-grid">
-                <div class="skill-cat">
+                <div class="skill-card">
                     <h3>Languages & Core</h3>
                     <ul class="skill-list">
                         <li>Rust (Rocket, Tauri, Tokio)</li>
                         <li>Python (TensorFlow, Automation)</li>
-                        <li>C++ / SQL (SurrealDB) / PHP</li>
+                        <li>C++ / SQL / PHP</li>
                     </ul>
                 </div>
-                <div class="skill-cat">
-                    <h3>Infrastructure & NetSec</h3>
+                <div class="skill-card">
+                    <h3>Infrastructure</h3>
                     <ul class="skill-list">
                         <li>Proxmox VE / Virtualization</li>
                         <li>VyOS & OPNsense Firewalls</li>
                         <li>SDN Architecture / Linux (Arch)</li>
                     </ul>
                 </div>
-                <div class="skill-cat">
-                    <h3>Hardware & Tools</h3>
+                <div class="skill-card">
+                    <h3>Hardware</h3>
                     <ul class="skill-list">
-                        <li>Embedded (Raspberry Pi/LoRa)</li>
-                        <li>Custom ROM Dev (TWRP/Android)</li>
-                        <li>Git / Docker / VS Code</li>
+                        <li>Embedded (RPi / LoRa / ESP32)</li>
+                        <li>Computer Systems Servicing (NCII)</li>
+                        <li>Android Kernel Dev</li>
                     </ul>
                 </div>
             </div>
         </section>
 
         <section>
-            <h2>Engineering Projects</h2>
-            
-            <div class="filter-container no-print">
-                <button class="filter-btn active" onclick="filterProjects('all')">All</button>
-                <button class="filter-btn" onclick="filterProjects('rust')">Rust/Systems</button>
+            <h2 class="section-title">Engineering Projects</h2>
+            <div class="filter-container">
+                <button class="filter-btn active" onclick="filterProjects('all')">View All</button>
+                <button class="filter-btn" onclick="filterProjects('rust')">Rust & Systems</button>
                 <button class="filter-btn" onclick="filterProjects('infra')">Infrastructure</button>
                 <button class="filter-btn" onclick="filterProjects('hardware')">Hardware</button>
-                <button class="filter-btn" onclick="filterProjects('web')">Web</button>
             </div>
 
             <div class="project-item" data-category="rust">
                 <div class="project-header">
-                    <span class="project-title">Crabflow SDN Controller</span>
-                    <span class="project-stack">[Rust, Tauri, Svelte, SurrealDB]</span>
+                    <div>
+                        <div class="project-title">Crabflow SDN Controller</div>
+                        <div class="tag-container"><span class="tech-tag">Rust</span><span class="tech-tag">Tauri</span></div>
+                    </div>
                 </div>
-                <div class="project-desc">
-                    A high-performance Software-Defined Networking controller with a real-time reactive dashboard.
+                <div class="project-desc">A memory-safe Software-Defined Networking controller with real-time reactive dashboard.</div>
+                <div class="project-links"><a href="https://github.com/revdeluxe/CrabFlow-Canary" target="_blank">View Source →</a></div>
+            </div>
+
+            <div class="project-item" data-category="rust">
+                <div class="project-header">
+                    <div>
+                        <div class="project-title">Crust Hybrid Game Engine</div>
+                        <div class="tag-container"><span class="tech-tag">Rust</span><span class="tech-tag">C++</span><span class="tech-tag">Physics</span></div>
+                    </div>
                 </div>
-                <ul class="project-bullets">
-                    <li>Architected a memory-safe SDN controller using Rust, minimizing runtime overhead for packet handling.</li>
-                    <li>Engineered a cross-platform desktop UI using Tauri to visualize network topology changes in real-time.</li>
-                    <li>Implemented asynchronous state management to handle multiple network nodes concurrently.</li>
-                </ul>
+                <div class="project-desc">High-performance architecture combining Rust's safety with industry-standard C++ physics libraries via FFI.</div>
+                <div class="project-links"><a href="https://github.com/revdeluxe/crust-engine" target="_blank">View Source →</a></div>
             </div>
 
             <div class="project-item" data-category="infra">
                 <div class="project-header">
-                    <span class="project-title">Bastion Network Framework</span>
-                    <span class="project-stack">[Proxmox, VyOS, OPNsense]</span>
+                    <div>
+                        <div class="project-title">Bastion Network Framework</div>
+                        <div class="tag-container"><span class="tech-tag">Proxmox</span><span class="tech-tag">VyOS</span><span class="tech-tag">OPNsense</span></div>
+                    </div>
                 </div>
-                <div class="project-desc">
-                    Modular network security infrastructure designed for educational simulation and penetration testing.
-                </div>
-                <ul class="project-bullets">
-                    <li>Orchestrated a virtualized environment using Proxmox to simulate enterprise-grade attack scenarios.</li>
-                    <li>Integrated VyOS for advanced routing (BGP/OSPF) and OPNsense for stateful firewall inspection.</li>
-                    <li>Automated the provisioning of secure "Bastion Hosts" to reduce internal network attack surfaces.</li>
-                </ul>
+                <div class="project-desc">Modular virtualized security infrastructure designed for educational simulation and enterprise-grade penetration testing.</div>
             </div>
 
             <div class="project-item" data-category="hardware">
                 <div class="project-header">
-                    <span class="project-title">Lenovo Tab M7 Custom Recovery</span>
-                    <span class="project-stack">[C, Makefile, Linux Kernel]</span>
+                    <div>
+                        <div class="project-title">Lenovo Tab M7 Custom Recovery</div>
+                        <div class="tag-container"><span class="tech-tag">C</span><span class="tech-tag">Linux Kernel</span></div>
+                    </div>
                 </div>
-                <div class="project-desc">
-                    Porting Team Win Recovery Project (TWRP) to unsupported hardware.
-                </div>
-                <ul class="project-bullets">
-                    <li>Compiled the Android kernel from source, patching drivers to support the TWRP recovery environment.</li>
-                    <li>Reverse-engineered proprietary partition tables to enable custom firmware flashing on locked devices.</li>
-                </ul>
+                <div class="project-desc">Ported Team Win Recovery Project (TWRP) by compiling the Android kernel from source and patching drivers.</div>
+                <div class="project-links"><a href="https://github.com/revdeluxe/TB-7305X-MTK-Custom-TWRP-and-Kernel" target="_blank">View Source →</a></div>
             </div>
 
-            <div class="project-item" data-category="hardware">
+             <div class="project-item" data-category="hardware">
                 <div class="project-header">
-                    <span class="project-title">LoRa SPI Driver Library</span>
-                    <span class="project-stack">[Python, SPI, Embedded Systems]</span>
+                    <div>
+                        <div class="project-title">pyLoRa SPI Driver</div>
+                        <div class="tag-container"><span class="tech-tag">Python</span><span class="tech-tag">IoT</span></div>
+                    </div>
                 </div>
-                <div class="project-desc">
-                    Low-power communication driver for Long Range (LoRa) IoT modules.
-                </div>
-                <ul class="project-bullets">
-                    <li>Developed a custom SPI interface library for low-power IoT applications using Python.</li>
-                    <li>Optimized data transmission protocols for reliable long-range communication in constrained environments.</li>
-                </ul>
+                <div class="project-desc">Updated Python-based LoRa driver for Single Board Computers (SBC) with custom SPI interfaces.</div>
+                <div class="project-links"><a href="https://github.com/revdeluxe/pyLoRa" target="_blank">View Source →</a></div>
             </div>
 
-            <div class="project-item" data-category="web">
+             <div class="project-item" data-category="web">
                 <div class="project-header">
-                    <span class="project-title">Stem Career Development Platform</span>
-                    <span class="project-stack">[Full Stack Web Development]</span>
+                    <div>
+                        <div class="project-title">Stem Career Platform</div>
+                        <div class="tag-container"><span class="tech-tag">Full Stack</span><span class="tech-tag">Web</span></div>
+                    </div>
                 </div>
-                <div class="project-desc">
-                    Web platform dedicated to tracking and developing STEM career paths.
-                </div>
-                <ul class="project-bullets">
-                    <li>Architecting the backend systems and frontend user experience for scalability.</li>
-                    <li>Implementing user tracking logic to provide personalized career roadmap suggestions.</li>
-                </ul>
+                <div class="project-desc">Web platform dedicated to tracking and developing STEM career paths with roadmap logic.</div>
             </div>
         </section>
 
         <section>
-            <h2>Parallel Professionalism</h2>
-            <div class="project-item" data-category="music" style="border-left: 3px solid var(--accent);">
-                <div class="project-header">
-                    <span class="project-title">Professional String Ensemble & Instruction</span>
-                    <span class="project-stack">[Freelance / Top Pro]</span>
+            <h2 class="section-title">Education & Credentials</h2>
+            <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 250px;">
+                    <div style="font-weight: 700; font-size: 1.1rem; color: #1a202c;">BS in Computer Science</div>
+                    <div style="color: var(--text-muted);">EARIST (2023 - Present)</div>
                 </div>
-                <div class="project-desc">
-                    Professional multi-instrumentalist and Music Theory Instructor.
+                <div style="flex: 1; min-width: 250px;">
+                    <div style="font-weight: 700; font-size: 1.1rem; color: #1a202c;">TVL-ICT: Computer Systems Servicing</div>
+                    <div style="color: var(--text-muted);">NCII Certified (2021 - 2023)</div>
                 </div>
-                <ul class="project-bullets">
-                    <li><strong>Performance:</strong> Cellist, Double Bassist, and Violinist for high-profile events and weddings.</li>
-                    <li><strong>Instruction:</strong> Instructor for Music Theory 101/102 and Music Literature.</li>
-                    <li><strong>Discipline:</strong> Applying the rigorous discipline of orchestral coordination to engineering team dynamics.</li>
-                </ul>
-            </div>
-        </section>
-
-        <section>
-            <h2>Education</h2>
-            <div class="project-item" style="padding: 0; background: none; border: none; box-shadow: none;">
-                <div class="project-header">
-                    <span class="project-title">BS in Computer Science</span>
-                    <span class="project-stack">2023 - Present</span>
-                </div>
-                <div style="color: var(--text-main);">Eulogio "Amang" Rodriguez Institute of Science and Technology (EARIST)</div>
             </div>
         </section>
 
         <footer>
-            <div class="no-print">
-                <p>Built with plain HTML/CSS/JS. Hosted on GitHub Pages.</p>
-                <div class="btn-resume" onclick="window.print()">Download PDF Resume</div>
-            </div>
+            <div class="btn-print" onclick="window.print()">Download Resume (PDF)</div>
+            <p style="margin-top: 1rem; opacity: 0.7; font-size: 0.8rem;">
+                Note: Personal contact info is redacted in the PDF unless unlocked above.
+            </p>
+            <p style="margin-top: 1rem;">&copy; 2024 Richard Josh Villareal. Hosted on GitHub Pages.</p>
         </footer>
     </div>
 
+    <div class="modal-overlay" id="authModal">
+        <div class="modal-content">
+            <div class="modal-title">Employer Access</div>
+            <p style="margin-bottom: 1rem; font-size: 0.9rem; color: #555;">
+                Enter access code to reveal personal contact info, birthdate, and full PDF download.
+            </p>
+            <input type="password" id="passcodeInput" class="modal-input" placeholder="Enter Access Code">
+            <div id="authError" class="error-msg">Incorrect Access Code.</div>
+            <button class="modal-btn" onclick="checkPasscode()">Unlock Profile</button>
+            <button class="modal-close" onclick="closeModal()">Cancel</button>
+        </div>
+    </div>
+
+    <div id="resume-print-only">
+        <div class="res-header-container">
+            <div class="res-header-left">
+                <div class="res-name">Richard Josh B. Villareal</div>
+                <div class="res-contact" id="print-contact-line">
+                    <span>Pasig City, Metro Manila</span> • 
+                    <span>[Contact Info Redacted - Website Access Required]</span> • 
+                    <span>github.com/revdeluxe</span>
+                </div>
+                <div id="print-bio-data">
+                    <div class="bio-row"><strong>Birthdate:</strong> April 2, 2003 • <strong>Birthplace:</strong> Quezon City</div>
+                    <div class="bio-row"><strong>Citizenship:</strong> Filipino • <strong>Civil Status:</strong> Single</div>
+                </div>
+            </div>
+            <div class="res-header-right">
+                <img src="me.jpg" class="profile-img-print" onerror="this.src='https://github.com/revdeluxe.png'">
+            </div>
+        </div>
+
+        <div class="res-section-title">Education & Certifications</div>
+        <div class="res-item">
+            <div class="res-row"><span>BS in Computer Science</span><span>2023 – Present</span></div>
+            <div class="res-sub">Eulogio "Amang" Rodriguez Institute of Science and Technology (EARIST)</div>
+        </div>
+        <div class="res-item">
+            <div class="res-row"><span>TVL-ICT: Computer Systems Servicing (NCII Certified)</span><span>2021 – 2023</span></div>
+            <div class="res-sub">Santolan High School</div>
+        </div>
+
+        <div class="res-section-title">Technical Skills</div>
+        <table class="res-skills-table">
+            <tr><td class="res-skill-cat">Languages</td><td>Rust (Rocket, Tauri, Tokio), Python (TensorFlow), C++, SQL, PHP</td></tr>
+            <tr><td class="res-skill-cat">Infrastructure</td><td>Proxmox VE, VyOS, OPNsense, SDN Architecture, Arch Linux, Docker</td></tr>
+            <tr><td class="res-skill-cat">Hardware</td><td>Embedded (RPi/LoRa), Android Kernel Dev, SPI Interfaces</td></tr>
+        </table>
+
+        <div class="res-section-title">Engineering Projects</div>
+        <div class="res-item">
+            <div class="res-row"><span>Crabflow SDN Controller <span class="res-repo-link">(github.com/revdeluxe/CrabFlow-Canary)</span></span><span>Rust, Tauri</span></div>
+            <ul class="res-list">
+                <li>Architected a memory-safe Software-Defined Networking controller using Rust to minimize packet handling overhead.</li>
+            </ul>
+        </div>
+        <div class="res-item">
+            <div class="res-row"><span>Crust Hybrid Game Engine <span class="res-repo-link">(github.com/revdeluxe/crust-engine)</span></span><span>Rust, C++</span></div>
+            <ul class="res-list">
+                <li>Developed a hybrid engine architecture combining the raw safety/speed of Rust with C++ physics capabilities via FFI.</li>
+            </ul>
+        </div>
+        <div class="res-item">
+            <div class="res-row"><span>Bastion Network Framework</span><span>Proxmox, VyOS</span></div>
+            <ul class="res-list">
+                <li>Orchestrated a virtualized environment to simulate enterprise-grade attack scenarios for penetration testing.</li>
+            </ul>
+        </div>
+        <div class="res-item">
+            <div class="res-row"><span>Android Kernel Porting <span class="res-repo-link">(github.com/revdeluxe/TB-7305X...)</span></span><span>C, Kernel</span></div>
+            <ul class="res-list">
+                <li>Compiled Android kernel from source, patching drivers to support TWRP on unsupported Lenovo hardware.</li>
+            </ul>
+        </div>
+
+        <div class="res-section-title">Professional Experience</div>
+        <div class="res-item">
+            <div class="res-row"><span>Freelance Musician & Instructor</span><span>2019 – Present</span></div>
+            <div class="res-sub">Professional String Ensemble</div>
+            <ul class="res-list">
+                <li>Professional Cellist, Double Bassist, and Violinist. Demonstrated high-level discipline and coordination.</li>
+            </ul>
+        </div>
+    </div>
+
     <script>
-        // --- 1. TYPEWRITER EFFECT ---
-        const roles = [
-            "CS Student @ EARIST", 
-            "Rust Developer", 
-            "Network Security Enthusiast", 
-            "Professional Musician",
-            "Hardware Modder"
-        ];
-        let roleIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        const typeSpeed = 80;
-        const deleteSpeed = 40;
-        const pauseTime = 2000;
-        const element = document.getElementById('typewriter');
+        // --- SECURITY LOGIC ---
+        const ACCESS_CODE = "hireme"; 
+        const MAX_ATTEMPTS = 5;
+        let attempts = 0;
 
-        function type() {
-            const currentRole = roles[roleIndex];
+        function openModal() {
+            // Check if locked
+            if (attempts >= MAX_ATTEMPTS) return;
+            document.getElementById('authModal').style.display = 'flex';
+            document.getElementById('passcodeInput').focus();
+            document.getElementById('authError').style.display = 'none';
+        }
+
+        function closeModal() {
+            document.getElementById('authModal').style.display = 'none';
+            document.getElementById('passcodeInput').value = '';
+        }
+
+        function checkPasscode() {
+            const input = document.getElementById('passcodeInput').value;
+            const errorMsg = document.getElementById('authError');
+            const btn = document.getElementById('employerBtn');
+            const lockMsg = document.getElementById('lockoutMsg');
+
+            if (input === ACCESS_CODE) {
+                unlockData();
+                closeModal();
+            } else {
+                attempts++;
+                const remaining = MAX_ATTEMPTS - attempts;
+                
+                if (remaining <= 0) {
+                    // LOCKOUT
+                    closeModal();
+                    btn.disabled = true;
+                    btn.innerText = "❌ Access Denied";
+                    btn.style.background = "#e53e3e";
+                    lockMsg.style.display = 'block';
+                } else {
+                    errorMsg.style.display = 'block';
+                    errorMsg.innerText = `Incorrect Code. ${remaining} attempts remaining.`;
+                }
+            }
+        }
+
+        document.getElementById('passcodeInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') checkPasscode();
+        });
+
+        // --- ANTI-INSPECT DETERRENTS ---
+        document.onkeydown = function(e) {
+            // F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+            if(e.keyCode == 123) return false;
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false;
+            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
+        }
+
+        function unlockData() {
+            // 1. Reveal Web Contact
+            const gate = document.getElementById('contact-gate');
+            const privateData = document.querySelectorAll('.private-data');
+            const btn = document.querySelector('.btn-employer');
+            const bioCard = document.getElementById('web-bio-card');
+
+            // Allow text selection now that it's unlocked
+            document.body.classList.add('unlocked');
+
+            if(gate) gate.style.display = 'none';
+            privateData.forEach(el => el.style.display = 'inline-flex');
             
-            if (isDeleting) {
-                element.textContent = currentRole.substring(0, charIndex - 1);
-                charIndex--;
-            } else {
-                element.textContent = currentRole.substring(0, charIndex + 1);
-                charIndex++;
+            // Show new Bio Card (Web)
+            if(bioCard) bioCard.style.display = 'block';
+
+            // Change button to unlocked state
+            if(btn) {
+                btn.innerHTML = "🔓 Unlocked";
+                btn.style.background = "#48bb78";
+                btn.onclick = null;
             }
 
-            if (!isDeleting && charIndex === currentRole.length) {
-                isDeleting = true;
-                setTimeout(type, pauseTime);
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                roleIndex = (roleIndex + 1) % roles.length;
-                setTimeout(type, 500);
-            } else {
-                setTimeout(type, isDeleting ? deleteSpeed : typeSpeed);
+            // 2. Reveal Print Data (Resume)
+            const printContact = document.getElementById('print-contact-line');
+            const printBio = document.getElementById('print-bio-data');
+            
+            if(printContact) {
+                printContact.innerHTML = `
+                    <span>Pasig City, Metro Manila</span> • 
+                    <span>+63 949 696 0002</span> • 
+                    <span>revchannel01@gmail.com</span> •
+                    <span>github.com/revdeluxe</span>
+                `;
             }
+            if(printBio) {
+                printBio.style.display = 'block';
+            }
+        }
+
+        // --- VISUALS ---
+        const roles = ["Software Engineer", "Rust Developer", "NetSec Enthusiast", "Hardware Modder"];
+        let roleIndex = 0, charIndex = 0, isDeleting = false;
+        const element = document.getElementById('typewriter');
+        
+        function type() {
+            const current = roles[roleIndex];
+            element.textContent = current.substring(0, charIndex + (isDeleting ? -1 : 1));
+            charIndex += isDeleting ? -1 : 1;
+            if (!isDeleting && charIndex === current.length) { isDeleting = true; setTimeout(type, 2000); }
+            else if (isDeleting && charIndex === 0) { isDeleting = false; roleIndex = (roleIndex + 1) % roles.length; setTimeout(type, 500); }
+            else setTimeout(type, isDeleting ? 50 : 100);
         }
         document.addEventListener('DOMContentLoaded', type);
 
-        // --- 2. PROJECT FILTERS ---
-        function filterProjects(category) {
-            const projects = document.querySelectorAll('.project-item');
-            const buttons = document.querySelectorAll('.filter-btn');
-
-            buttons.forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.innerText.toLowerCase().includes(category) || 
-                   (category === 'all' && btn.innerText === 'All')) {
-                    btn.classList.add('active');
-                }
-            });
-
-            projects.forEach(project => {
-                // Always show Music section regardless of filter unless we specifically filter for it later
-                if(project.dataset.category === 'music') return; 
-
-                if (category === 'all' || project.dataset.category === category) {
-                    project.style.display = 'block';
-                    project.style.opacity = '0';
-                    setTimeout(() => project.style.opacity = '1', 50);
-                } else {
-                    project.style.display = 'none';
-                }
+        function filterProjects(cat) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            document.querySelectorAll('.project-item').forEach(el => {
+                if (!el.dataset.category) return;
+                el.style.display = (cat === 'all' || el.dataset.category === cat) ? 'block' : 'none';
             });
         }
 
-        // --- 3. NETWORK PARTICLES BACKGROUND ---
         const canvas = document.getElementById('network-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
-        
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
+        const resize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
+        window.addEventListener('resize', resize); resize();
 
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 0.5;
-                this.vy = (Math.random() - 0.5) * 0.5;
-                this.size = Math.random() * 2 + 1;
+        class P {
+            constructor() { 
+                this.x = Math.random() * canvas.width; 
+                this.y = Math.random() * canvas.height; 
+                this.vx = (Math.random() - 0.5) * 0.4; 
+                this.vy = (Math.random() - 0.5) * 0.4; 
             }
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-            }
-            draw() {
-                ctx.fillStyle = '#7aa2f7'; 
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
+            update() { 
+                this.x += this.vx; this.y += this.vy; 
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1; 
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1; 
             }
         }
-
-        function initParticles() {
-            particles = [];
-            const count = window.innerWidth < 600 ? 20 : 60; 
-            for (let i = 0; i < count; i++) particles.push(new Particle());
-        }
+        for (let i = 0; i < 45; i++) particles.push(new P());
 
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update();
-                particles[i].draw();
-                for (let j = i; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const distance = Math.sqrt(dx*dx + dy*dy);
-                    if (distance < 150) {
-                        ctx.strokeStyle = `rgba(122, 162, 247, ${1 - distance/150})`;
-                        ctx.lineWidth = 1;
-                        ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.stroke();
-                    }
-                }
-            }
+            ctx.fillStyle = '#cbd5e0'; ctx.strokeStyle = 'rgba(160, 174, 192, 0.4)'; 
+            particles.forEach((p, i) => {
+                p.update(); 
+                ctx.beginPath(); ctx.arc(p.x, p.y, 2, 0, Math.PI * 2); ctx.fill();
+                particles.slice(i).forEach(p2 => {
+                    let d = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if (d < 140) { ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke(); }
+                });
+            });
             requestAnimationFrame(animate);
         }
-
-        initParticles();
         animate();
     </script>
 </body>
