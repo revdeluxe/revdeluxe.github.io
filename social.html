@@ -13,7 +13,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { background: var(--bg-color); color: var(--text-main); font-family: var(--font-sans); padding-bottom: 5rem; }
 
-        .back-btn { position: fixed; top: 1.5rem; left: 1.5rem; padding: 0.5rem 1rem; background: white; border: 1px solid var(--border); border-radius: 8px; text-decoration: none; color: var(--accent); font-weight: 600; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .back-btn { position: fixed; top: 1.5rem; left: 1.5rem; padding: 0.5rem 1rem; background: white; border: 1px solid var(--border); border-radius: 8px; text-decoration: none; color: var(--accent); font-weight: 600; box-shadow: 0 2px 4px rgba(0,0,0,0.05); z-index: 10; }
         .back-btn:hover { background: var(--accent); color: white; }
 
         .container { max-width: 800px; margin: 0 auto; padding: 4rem 2rem; }
@@ -32,8 +32,50 @@
         .service-price { font-family: monospace; font-weight: bold; color: var(--accent); }
 
         /* --- MUSIC --- */
-        .music-tags { display: flex; gap: 0.5rem; margin-top: 1rem; }
+        .music-tags { display: flex; gap: 0.5rem; margin-top: 1rem; margin-bottom: 1.5rem; }
         .inst-tag { background: #c6f6d5; color: #22543d; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.9rem; font-weight: 600; }
+
+        /* --- GALLERY --- */
+        .gallery { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+            gap: 1rem; 
+            margin-top: 2rem; 
+        }
+        .gallery img { 
+            width: 100%; 
+            height: 200px; 
+            object-fit: cover; 
+            border-radius: 10px; 
+            border: 2px solid var(--border);
+            transition: transform 0.2s ease, border-color 0.2s;
+            cursor: zoom-in;
+        }
+        .gallery img:hover { transform: scale(1.02); border-color: var(--accent); }
+
+        /* --- LIGHTBOX (ZOOM) --- */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+            animation: fadeIn 0.2s ease;
+        }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+            box-shadow: 0 0 25px rgba(0,0,0,0.5);
+            cursor: default;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -68,17 +110,31 @@
 
         <div class="section-card">
             <h2>🎻 Music & Arts</h2>
-            <p>Professional string ensemble member with a passion for classical composition.</p>
+            <p>Freelance string player with a passion for contemporary and classical composition. Available for events and private lessons.</p>
             
             <div class="music-tags">
                 <span class="inst-tag">Cello</span>
                 <span class="inst-tag">Double Bass</span>
                 <span class="inst-tag">Violin</span>
             </div>
+
+            <div class="service-row">
+                <span class="service-name">Events & Weddings</span>
+                <span class="service-price">₱2,500 - ₱6,000</span>
+            </div>
+            <div class="service-row">
+                <span class="service-name">Private Tutoring</span>
+                <span class="service-price">₱500/hr</span>
+            </div>
             
-            <p style="margin-top:1.5rem; font-size:0.95rem; line-height:1.6;">
-                Available for events, weddings, and private tutoring. I bring the same discipline to my music as I do to my code.
+            <p style="margin-top:1.5rem; font-size:0.95rem; line-height:1.6; opacity: 0.8;">
+                * I bring the same discipline to my music as I do to my code.
             </p>
+
+            <div class="gallery">
+                <img src="music0.jpg" alt="Ensemble Performance" onclick="openZoom(this.src)">
+                <img src="music1.jpg" alt="String Quartet" onclick="openZoom(this.src)">
+            </div>
         </div>
 
         <div class="section-card">
@@ -86,5 +142,26 @@
             <p>Digital Art, Russian Language & Culture Learning, Electronics Modification.</p>
         </div>
     </div>
+
+    <div id="lightbox" class="lightbox" onclick="closeZoom()">
+        <img id="lightbox-img" src="" onclick="event.stopPropagation()">
+    </div>
+
+    <script>
+        function openZoom(src) {
+            const lightbox = document.getElementById('lightbox');
+            const img = document.getElementById('lightbox-img');
+            img.src = src;
+            lightbox.style.display = 'flex';
+        }
+
+        function closeZoom() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === "Escape") closeZoom();
+        });
+    </script>
 </body>
 </html>
