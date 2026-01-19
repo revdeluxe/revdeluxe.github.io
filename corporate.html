@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Richard Josh Villareal | Professional Resume</title>
+    <style>
+        /* =========================================
+           WEB VIEW STYLES
+           ========================================= */
+        :root {
+            --bg-color: #f8f9fa; --text-main: #2d3748; --text-muted: #718096;
+            --accent: #dd6b20; --border: #e2e8f0; --card-bg: #ffffff;
+            --font-mono: 'JetBrains Mono', monospace; --font-sans: -apple-system, sans-serif;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg-color); color: var(--text-main); font-family: var(--font-sans); line-height: 1.6; }
+
+        /* Back Button */
+        .back-btn { position: fixed; top: 1.5rem; left: 1.5rem; padding: 0.5rem 1rem; background: white; border: 1px solid var(--border); border-radius: 8px; text-decoration: none; color: var(--text-muted); font-weight: 600; box-shadow: 0 2px 4px rgba(0,0,0,0.05); z-index: 100; transition: 0.2s; }
+        .back-btn:hover { color: var(--accent); border-color: var(--accent); }
+
+        .web-container { max-width: 900px; margin: 0 auto; padding: 4rem 2rem; }
+
+        /* Web Header */
+        header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 3rem; border-bottom: 1px solid var(--border); padding-bottom: 2rem; }
+        h1 { font-size: 2.5rem; line-height: 1.1; margin-bottom: 0.5rem; }
+        .subtitle { font-family: var(--font-mono); color: var(--accent); font-weight: 600; margin-bottom: 1rem; }
+        
+        /* Redaction & Unlock Styles */
+        .redacted-badge { background: #eee; color: #777; padding: 2px 6px; border-radius: 4px; font-size: 0.85em; cursor: not-allowed; font-family: var(--font-mono); }
+        .private-data { display: none; } /* Hidden by default */
+        
+        /* The Unlocked Bio Line (Clean, no box) */
+        #web-bio-data { 
+            display: none; 
+            margin-top: 0.8rem; 
+            font-size: 0.9rem; 
+            color: var(--text-main); 
+            border-top: 1px dashed var(--border);
+            padding-top: 0.8rem;
+        }
+        #web-bio-data strong { color: var(--accent); }
+
+        .btn-employer { background: var(--text-main); color: white; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; border: none; font-weight: 600; margin-top: 1rem; }
+        .btn-employer:hover { background: var(--accent); }
+        .btn-employer:disabled { background: #a0aec0; cursor: not-allowed; }
+
+        /* Sections */
+        section { margin-bottom: 3rem; }
+        h2.web-section-title { font-size: 1.3rem; border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
+        
+        .resume-item { margin-bottom: 1.5rem; }
+        .resume-header { display: flex; justify-content: space-between; font-weight: 700; color: #1a202c; }
+        .resume-sub { font-style: italic; color: var(--text-muted); margin-bottom: 0.5rem; font-size: 0.95rem; }
+        .resume-list { list-style: square; margin-left: 1.2rem; color: #4a5568; }
+        .resume-list li { margin-bottom: 0.3rem; }
+
+        /* Modal */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(5px); }
+        .modal-content { background: white; padding: 2rem; border-radius: 12px; width: 90%; max-width: 400px; text-align: center; }
+        .modal-input { width: 100%; padding: 0.8rem; margin: 1rem 0; border: 1px solid #ccc; border-radius: 6px; }
+        .modal-btn { background: var(--accent); color: white; padding: 0.6rem; border: none; border-radius: 6px; width: 100%; font-weight: bold; cursor: pointer; }
+        .error-msg { color: #e53e3e; font-size: 0.85rem; margin-top: 0.5rem; display: none; }
+
+        /* Hide Print Layout on Screen */
+        #print-layout { display: none; }
+
+        /* =========================================
+           PRINT STYLES (PDF Output)
+           ========================================= */
+        @media print {
+            /* Hide Web Elements */
+            .web-container, .back-btn, .modal-overlay, .btn-employer { display: none !important; }
+            
+            /* Show Print Layout */
+            #print-layout { display: block !important; }
+            
+            @page { margin: 0.5in; size: letter; }
+            body { background: white; color: black; font-family: 'Helvetica', 'Arial', sans-serif; }
+
+            /* Print Header */
+            .print-header { border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-start; }
+            .print-info h1 { font-size: 24pt; text-transform: uppercase; margin-bottom: 5px; letter-spacing: 1px; }
+            .print-contact { font-size: 10pt; margin-bottom: 5px; }
+            
+            /* Print Bio Data (Hidden by default until unlocked) */
+            .print-bio-data { font-size: 10pt; display: none; margin-top: 5px; }
+            .print-bio-data span { margin-right: 15px; }
+            .print-bio-data strong { font-weight: bold; }
+
+            .print-img { width: 100px; height: 100px; object-fit: cover; border: 1px solid #ccc; }
+
+            /* Print Sections */
+            h3.print-sec-title { font-size: 12pt; text-transform: uppercase; border-bottom: 1px solid #ccc; margin-top: 15px; margin-bottom: 10px; font-weight: bold; }
+            
+            .print-item { margin-bottom: 10px; page-break-inside: avoid; }
+            .print-row { display: flex; justify-content: space-between; font-weight: bold; font-size: 11pt; }
+            .print-sub { font-style: italic; font-size: 10pt; margin-bottom: 2px; }
+            .print-list { margin-left: 1.5em; font-size: 10pt; line-height: 1.4; }
+            
+            .print-skills-table { width: 100%; border-collapse: collapse; font-size: 10pt; }
+            .print-skills-table td { padding: 3px 0; vertical-align: top; }
+            .print-skill-label { font-weight: bold; width: 120px; }
+        }
+    </style>
+</head>
+<body oncontextmenu="return false">
+
+    <a href="index.html" class="back-btn">← Hub</a>
+
+    <div class="web-container">
+        <header>
+            <div>
+                <h1>Richard Josh Villareal</h1>
+                <div class="subtitle">Computer Science Student & Network Technician</div>
+                <div>
+                    📍 Manila, PH &nbsp;|&nbsp; 
+                    <span id="contact-gate">
+                        <span class="redacted-badge">[Phone Redacted]</span> • <span class="redacted-badge">[Email Redacted]</span>
+                    </span>
+                    <span class="private-data">
+                        +63 949 696 0002 • revchannel01@gmail.com
+                    </span>
+                </div>
+                
+                <button class="btn-employer" id="employerBtn" onclick="openModal()">🔒 Employer Access</button>
+                <div id="lockoutMsg" class="error-msg">System Locked.</div>
+
+                <div id="web-bio-data">
+                    <strong>Birthdate:</strong> April 2, 2003 • 
+                    <strong>Birthplace:</strong> Quezon City • 
+                    <strong>Citizenship:</strong> Filipino • 
+                    <strong>Civil Status:</strong> Single
+                </div>
+            </div>
+            <img src="me.jpg" alt="Profile" style="width:120px; height:120px; border-radius:50%; object-fit:cover; border:1px solid #ccc;" onerror="this.src='https://github.com/revdeluxe.png'">
+        </header>
+
+        <section>
+            <h2 class="web-section-title">Education</h2>
+            <div class="resume-item">
+                <div class="resume-header"><span>BS in Computer Science</span><span>2023 – Present</span></div>
+                <div class="resume-sub">Eulogio "Amang" Rodriguez Institute of Science and Technology (EARIST)</div>
+            </div>
+            <div class="resume-item">
+                <div class="resume-header"><span>TVL-ICT: Computer Systems Servicing (NCII)</span><span>2021 – 2023</span></div>
+                <div class="resume-sub">Santolan High School</div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="web-section-title">Technical Skills</h2>
+            <div class="resume-item">
+                <ul class="resume-list">
+                    <li><strong>Programming:</strong> Rust (Rocket, Tauri, Tokio), Python (TensorFlow), C++, SQL, PHP</li>
+                    <li><strong>Infrastructure:</strong> Proxmox VE, VyOS, OPNsense, SDN Architecture, Arch Linux</li>
+                    <li><strong>Hardware:</strong> Embedded (RPi/LoRa), Android Kernel Dev, Electronics Repair</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="web-section-title">Selected Projects</h2>
+            <div class="resume-item">
+                <div class="resume-header"><span>Crabflow SDN Controller</span><span>Rust, Tauri</span></div>
+                <ul class="resume-list">
+                    <li>Architected a memory-safe Software-Defined Networking controller using Rust.</li>
+                    <li>Designed a real-time reactive dashboard for network traffic monitoring.</li>
+                </ul>
+            </div>
+            <div class="resume-item">
+                <div class="resume-header"><span>Sentinel Framework</span><span>Proxmox, VyOS</span></div>
+                <ul class="resume-list">
+                    <li>Orchestrated a virtualized environment to simulate enterprise-grade attack scenarios.</li>
+                </ul>
+            </div>
+             <div class="resume-item">
+                <div class="resume-header"><span>Android Kernel Porting</span><span>C, Assembly</span></div>
+                <ul class="resume-list">
+                    <li>Compiled Android kernel from source and patched drivers to support TWRP on legacy Lenovo hardware.</li>
+                </ul>
+            </div>
+        </section>
+
+        <div style="text-align:center; margin-top:2rem;">
+            <div class="btn-employer" style="background:#2d3748; display:inline-block;" onclick="window.print()">Download PDF Resume</div>
+        </div>
+    </div>
+
+    <div id="print-layout">
+        <div class="print-header">
+            <div class="print-info">
+                <h1>RICHARD JOSH B. VILLAREAL</h1>
+                <div class="print-contact" id="print-contact-line">
+                    Pasig City, Metro Manila • [Redacted - Website Access Required] • github.com/revdeluxe
+                </div>
+                <div class="print-bio-data" id="print-bio">
+                    <span><strong>Birthdate:</strong> April 2, 2003</span>
+                    <span><strong>Birthplace:</strong> Quezon City</span><br>
+                    <span><strong>Citizenship:</strong> Filipino</span>
+                    <span><strong>Civil Status:</strong> Single</span>
+                </div>
+            </div>
+            <img src="me.jpg" class="print-img" onerror="this.src='https://github.com/revdeluxe.png'">
+        </div>
+
+        <h3 class="print-sec-title">Education & Certifications</h3>
+        <div class="print-item">
+            <div class="print-row"><span>BS in Computer Science</span><span>2023 – Present</span></div>
+            <div class="print-sub">Eulogio "Amang" Rodriguez Institute of Science and Technology (EARIST)</div>
+        </div>
+        <div class="print-item">
+            <div class="print-row"><span>TVL-ICT: Computer Systems Servicing (NCII Certified)</span><span>2021 – 2023</span></div>
+            <div class="print-sub">Santolan High School</div>
+        </div>
+
+        <h3 class="print-sec-title">Technical Skills</h3>
+        <table class="print-skills-table">
+            <tr><td class="print-skill-label">Programming</td><td>Rust (Rocket, Tauri, Tokio), Python (TensorFlow), C++, SQL, PHP</td></tr>
+            <tr><td class="print-skill-label">Infrastructure</td><td>Proxmox VE, VyOS, OPNsense, SDN Architecture, Arch Linux, Docker</td></tr>
+            <tr><td class="print-skill-label">Hardware</td><td>Embedded (RPi/LoRa), Android Kernel Dev, SPI Interfaces</td></tr>
+        </table>
+
+        <h3 class="print-sec-title">Engineering Projects</h3>
+        <div class="print-item">
+            <div class="print-row"><span>Crabflow SDN Controller <span style="font-weight:normal; font-size:0.9em">(github.com/revdeluxe/CrabFlow-Canary)</span></span><span>Rust, Tauri</span></div>
+            <ul class="print-list">
+                <li>Architected a memory-safe Software-Defined Networking controller using Rust to minimize packet handling overhead.</li>
+            </ul>
+        </div>
+        <div class="print-item">
+            <div class="print-row"><span>Sentinel Framework</span><span>Proxmox, VyOS</span></div>
+            <ul class="print-list">
+                <li>Orchestrated a virtualized environment to simulate enterprise-grade attack scenarios for penetration testing.</li>
+            </ul>
+        </div>
+        <div class="print-item">
+            <div class="print-row"><span>Android Kernel Porting <span style="font-weight:normal; font-size:0.9em">(github.com/revdeluxe/TB-7305X...)</span></span><span>C, Kernel</span></div>
+            <ul class="print-list">
+                <li>Compiled Android kernel from source, patching drivers to support TWRP on unsupported Lenovo hardware.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="authModal">
+        <div class="modal-content">
+            <h3>Employer Verification</h3>
+            <p>Enter code to view contact details.</p>
+            <input type="password" id="passcodeInput" class="modal-input" placeholder="Access Code">
+            <div id="authError" class="error-msg">Incorrect Code.</div>
+            <button class="modal-btn" onclick="checkPasscode()">Unlock</button>
+            <button class="modal-btn" style="background:transparent; color:#777; margin-top:0.5rem;" onclick="closeModal()">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        const ACCESS_CODE = "hireme"; 
+        const MAX_ATTEMPTS = 5;
+        let attempts = 0;
+
+        function openModal() { document.getElementById('authModal').style.display = 'flex'; document.getElementById('passcodeInput').focus(); }
+        function closeModal() { document.getElementById('authModal').style.display = 'none'; }
+        
+        function checkPasscode() {
+            const input = document.getElementById('passcodeInput').value;
+            if (input === ACCESS_CODE) {
+                // Unlock WEB elements
+                document.getElementById('contact-gate').style.display = 'none';
+                document.querySelectorAll('.private-data').forEach(el => el.style.display = 'inline');
+                document.getElementById('web-bio-data').style.display = 'block'; // Show clean bio data
+                document.getElementById('employerBtn').style.display = 'none';
+                
+                // Unlock PRINT elements
+                document.getElementById('print-contact-line').innerHTML = "Pasig City, Metro Manila • +63 949 696 0002 • revchannel01@gmail.com • github.com/revdeluxe";
+                document.getElementById('print-bio').style.display = 'block';
+
+                closeModal();
+            } else {
+                attempts++;
+                document.getElementById('authError').style.display = 'block';
+                if(attempts >= MAX_ATTEMPTS) {
+                    closeModal();
+                    document.getElementById('employerBtn').disabled = true;
+                    document.getElementById('employerBtn').innerText = "❌ Locked";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

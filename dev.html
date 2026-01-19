@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Richard Josh Villareal | Engineering</title>
+    <style>
+        :root {
+            --bg-color: #f8f9fa; --text-main: #2d3748; --accent-sec: #3182ce; 
+            --card-bg: #ffffff; --border: #e2e8f0;
+            --font-mono: 'JetBrains Mono', monospace; --font-sans: -apple-system, sans-serif;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg-color); color: var(--text-main); font-family: var(--font-sans); padding-bottom: 5rem; }
+
+        .back-btn { position: fixed; top: 1.5rem; left: 1.5rem; padding: 0.5rem 1rem; background: white; border: 1px solid var(--border); border-radius: 8px; text-decoration: none; color: #718096; font-weight: 600; z-index: 100; }
+        .back-btn:hover { color: var(--accent-sec); border-color: var(--accent-sec); }
+
+        .container { max-width: 1000px; margin: 4rem auto; padding: 0 2rem; }
+        
+        h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .tagline { font-family: var(--font-mono); color: var(--accent-sec); margin-bottom: 3rem; }
+
+        /* --- FILTERS --- */
+        .filter-bar { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+        .filter-btn { padding: 0.5rem 1.2rem; border-radius: 20px; border: 1px solid var(--border); background: transparent; cursor: pointer; transition: 0.2s; font-weight: 600; color: #718096; }
+        .filter-btn.active, .filter-btn:hover { background: var(--accent-sec); color: white; border-color: var(--accent-sec); }
+
+        /* --- PROJECTS --- */
+        .project-grid { display: grid; gap: 2rem; }
+        .project-card { background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border); transition: 0.2s; }
+        .project-card:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); border-color: var(--accent-sec); }
+        
+        .project-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center; }
+        .tech-stack { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+        .tech-badge { background: #ebf8ff; color: #2b6cb0; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-family: var(--font-mono); font-weight: 600; }
+        .project-link { display: inline-block; margin-top: 1rem; color: var(--accent-sec); text-decoration: none; font-weight: 600; }
+        
+        #network-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.5; }
+    </style>
+</head>
+<body>
+    <canvas id="network-canvas"></canvas>
+    <a href="index.html" class="back-btn">← Hub</a>
+
+    <div class="container">
+        <h1>Engineering Portfolio</h1>
+        <div class="tagline">&gt; Systems. Security. Rust.</div>
+
+        <div class="filter-bar">
+            <button class="filter-btn active" onclick="filter('all', this)">All Projects</button>
+            <button class="filter-btn" onclick="filter('rust', this)">Rust & Systems</button>
+            <button class="filter-btn" onclick="filter('infra', this)">Infrastructure</button>
+            <button class="filter-btn" onclick="filter('hardware', this)">Hardware</button>
+        </div>
+
+        <div class="project-grid">
+            <div class="project-card" data-cat="rust">
+                <div class="project-title">Crabflow SDN Controller</div>
+                <div class="tech-stack"><span class="tech-badge">Rust</span><span class="tech-badge">Tauri</span></div>
+                <p>A memory-safe Software-Defined Networking controller utilizing Rust to minimize packet handling overhead with a reactive dashboard.</p>
+                <a href="https://github.com/revdeluxe/CrabFlow-Canary" target="_blank" class="project-link">View Source →</a>
+            </div>
+
+            <div class="project-card" data-cat="rust">
+                <div class="project-title">Crust Hybrid Game Engine</div>
+                <div class="tech-stack"><span class="tech-badge">Rust</span><span class="tech-badge">C++</span><span class="tech-badge">FFI</span></div>
+                <p>High-performance architecture combining Rust's safety for game logic with industry-standard C++ physics libraries.</p>
+                <a href="https://github.com/revdeluxe/crust-engine" target="_blank" class="project-link">View Source →</a>
+            </div>
+
+            <div class="project-card" data-cat="infra">
+                <div class="project-title">Sentinel Framework</div>
+                <div class="tech-stack"><span class="tech-badge">Proxmox</span><span class="tech-badge">VyOS</span><span class="tech-badge">NetSec</span></div>
+                <p>Modular virtualized security infrastructure designed for educational simulation and enterprise-grade penetration testing.</p>
+            </div>
+
+            <div class="project-card" data-cat="hardware">
+                <div class="project-title">Lenovo Custom Recovery</div>
+                <div class="tech-stack"><span class="tech-badge">C</span><span class="tech-badge">Linux Kernel</span></div>
+                <p>Ported Team Win Recovery Project (TWRP) by compiling the Android kernel from source and patching drivers.</p>
+                <a href="https://github.com/revdeluxe/TB-7305X-MTK-Custom-TWRP-and-Kernel" target="_blank" class="project-link">View Source →</a>
+            </div>
+            
+            <div class="project-card" data-cat="hardware">
+                <div class="project-title">pyLoRa SPI Driver</div>
+                <div class="tech-stack"><span class="tech-badge">Python</span><span class="tech-badge">IoT</span></div>
+                <p>Updated Python-based LoRa driver for Single Board Computers (SBC) with custom SPI interfaces.</p>
+                <a href="https://github.com/revdeluxe/pyLoRa" target="_blank" class="project-link">View Source →</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function filter(cat, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.project-card').forEach(el => {
+                el.style.display = (cat === 'all' || el.dataset.cat === cat) ? 'block' : 'none';
+            });
+        }
+
+        // Particle Background
+        const canvas = document.getElementById('network-canvas');
+        const ctx = canvas.getContext('2d');
+        const resize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
+        window.addEventListener('resize', resize); resize();
+        
+        let particles = Array.from({length: 40}, () => ({
+            x: Math.random()*canvas.width, y: Math.random()*canvas.height,
+            vx: (Math.random()-0.5)*0.5, vy: (Math.random()-0.5)*0.5
+        }));
+
+        function animate() {
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            ctx.fillStyle = '#cbd5e0'; ctx.strokeStyle = 'rgba(160, 174, 192, 0.4)';
+            particles.forEach(p => {
+                p.x+=p.vx; p.y+=p.vy;
+                if(p.x<0||p.x>canvas.width) p.vx*=-1;
+                if(p.y<0||p.y>canvas.height) p.vy*=-1;
+                ctx.beginPath(); ctx.arc(p.x,p.y,2,0,Math.PI*2); ctx.fill();
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
+</body>
+</html>
